@@ -1,0 +1,43 @@
+/* Header.css */
+.header {
+  background: linear-gradient(to right, #00457E, #2F70AF);
+  font-family:'Times New Roman', Times, serif;
+  color: white;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  width: 200px; 
+  height: auto; 
+  display: block; 
+  margin: 0 auto; 
+  padding: 10px; 
+}
+
+.nav {
+  display: flex;
+}
+
+.nav-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.nav-item {
+  margin-right: 5em;
+  letter-spacing: 2px;
+}
+
+.nav-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-item a:hover {
+  text-decoration: underline;
+}
