@@ -1,0 +1,101 @@
+
+.Container {
+    width: 100vw; 
+    height: 100vh; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column; 
+    background-color: #f0f0f0; 
+    font-family: Arial, sans-serif; 
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  
+  .Container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  
+  .Nombres,
+  .Apellidos,
+  .Genero,
+  .Email,
+  .Save,
+  .ConfirmacionSave {
+    width: 100%; 
+    max-width: 300px; 
+    margin-bottom: 15px;
+  }
+  
+  
+  .Nombres p,
+  .Apellidos p,
+  .Genero p,
+  .Email p,
+  .Save p,
+  .ConfirmacionSave p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 13px;
+  }
+  
+ 
+  .Genero {
+    display: flex;
+    align-items: center;
+  }
+  
+  .Genero label {
+    margin-left: 10px;
+  }
+  
+
+  .Genero input[type="checkbox"] {
+    margin-right: 5px;
+    transform: scale(0.8);
+  }
+  
+  
+  .Guardar {
+    text-align: center;
+  }
+  
+  .Guardar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .Guardar button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 13px;
+  }
+  
+  
+  input[type="checkbox"] {
+    transform: scale(0.8);
+  }
+  
+  
+  
+  
+  
+  
+  
