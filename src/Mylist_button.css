@@ -1,0 +1,24 @@
+.button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+}
+.large-button {
+    width: 50%;
+    height: 50%; 
+    font-size: 2rem;
+    background-color: #2f70af; 
+    color: white;
+    border-radius: 20px; 
+}
+
+.large-button:hover {
+    background-color: #5a3d6a; /* Cambia el color de fondo al hacer hover */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.large-button:active {
+    background-color: #3e2a4d; /* Cambia el color de fondo al hacer clic */
+}

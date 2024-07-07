@@ -6,10 +6,11 @@ import './button.css';  // Importa el archivo CSS para los estilos del botón
 
 export default function BasicButtons() {
   return (
-    
+    <section className=''>
     <Stack spacing={2} direction="row">
       <Button variant="contained">Contained</Button>
     </Stack>
+    </section>
   );
 }
 
