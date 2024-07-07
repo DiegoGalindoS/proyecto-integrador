@@ -1,5 +1,6 @@
+/* Estilos específicos para la aplicación dentro de .app-container */
 
-body {
+.app-container {
   display: flex;
   justify-content: center; 
   align-items: center; 
@@ -9,8 +10,7 @@ body {
   font-family: Arial, sans-serif; 
 }
 
-
-.Container {
+.app-container .Container {
   width: 100%; 
   height: 100%;
   display: flex;
@@ -22,18 +22,17 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-.Usuario,
-.Contraseña,
-.ConfirmacionContraseña {
+.app-container .Usuario,
+.app-container .Contraseña,
+.app-container .ConfirmacionContraseña {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.Usuario p,
-.Contraseña p,
-.ConfirmacionContraseña p {
+.app-container .Usuario p,
+.app-container .Contraseña p,
+.app-container .ConfirmacionContraseña p {
   margin: 0;
   color: #666;
   font-weight: bold;
@@ -42,9 +41,9 @@ body {
   font-size: 13px; 
 }
 
-.Usuario input,
-.Contraseña input,
-.ConfirmacionContraseña input {
+.app-container .Usuario input,
+.app-container .Contraseña input,
+.app-container .ConfirmacionContraseña input {
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
@@ -53,13 +52,13 @@ body {
   font-size: 13px; 
 }
 
-.Buttons {
+.app-container .Buttons {
   display: flex;
   justify-content: center;
   margin-top: 10px;
 }
 
-.Buttons button {
+.app-container .Buttons button {
   padding: 10px 20px;
   border: none;
   background-color: #007bff;
@@ -70,7 +69,6 @@ body {
   margin: 0 5px; 
 }
 
-.Buttons button:hover {
+.app-container .Buttons button:hover {
   background-color: #0056b3;
 }
-

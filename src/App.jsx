@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
-import Cuestionario from './pages/Cuestionario';  // Asegúrate de que esta ruta es correcta
+import Cuestionario from './pages/Cuestionario';
+import MainLayout from './MainLayout';
 
 function App() {
-  const [count, setCount] = useState(0);
   const navigate = useNavigate();
 
   const handleCreateUser = () => {
     navigate('/cuestionario');
   };
 
+  const handleLogin = () => {
+    navigate('/home');
+  };
+
   return (
-    <>
+    <div className='app-container'>
       <Routes>
         <Route path="/" element={
           <div>
@@ -29,16 +33,15 @@ function App() {
             </div>
             <div className='Buttons'>
               <button onClick={handleCreateUser}>Create User</button>
-              <button>Log In</button>
+              <button onClick={handleLogin}>Log In</button>
             </div>
           </div>
         } />
         <Route path="/cuestionario" element={<Cuestionario />} />
+        <Route path="/home" element={<MainLayout />} />
       </Routes>
-    </>
+      </div>
   );
 }
 
-export default App;
-
- 
+export default App

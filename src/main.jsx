@@ -1,22 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './index.css';
 import App from './App';
-import './index.css';  // Importa los estilos globales
+import MainLayout from './MainLayout';
+import Cuestionario from './pages/Cuestionario';
 import Header from './Header';
-import BasicButtons from './button';  // Asegúrate de tener el archivo Boton.jsx o Boton.js en la misma carpeta
-import MyList from './to do list/myList.jsx';
-import ButtonList from './Mylist_button';
-
-
-
+import MyList from './to do list/myList';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Header />
-    <MyList />
-    <ButtonList buttonText="Mis listas" />
-    <ButtonList buttonText="Nueva lista" />   
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/cuestionario" element={<Cuestionario />} />
+        <Route path="/home" element={<MainLayout />} />
+        <Route path="/my-list" element={<>
+          <Header />
+          <MyList />
+        </>} />
+      </Routes>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

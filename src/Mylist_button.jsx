@@ -1,12 +1,13 @@
 import React from 'react';
-import './Mylist_button.css'; 
+import { Link } from 'react-router-dom';
+import './Mylist_button.css';
 
-function ButtonList({ buttonText }) {
-    return (
-        <div className="button-container">
-            <button className="large-button">{buttonText}</button>
-        </div>
-    );
+function ButtonList({ buttonText, to }) {
+  return (
+    <div className="button-container">
+      <Link to={to} className="large-button">{buttonText}</Link>
+    </div>
+  );
 }
 
 export default ButtonList;

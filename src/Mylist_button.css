@@ -5,18 +5,25 @@
     align-items: center;
     height: 30vh;
 }
+
 .large-button {
-    width: 50%;
-    height: 50%; 
-    font-size: 2rem;
-    background-color: #2f70af; 
-    color: white;
-    border-radius: 20px; 
+    width: 200px; /* Ancho fijo */
+    height: 50px; /* Altura fija */
+    font-size: 1.5rem; /* Tamaño del texto */
+    background-color: #2f70af; /* Color de fondo */
+    color: white; /* Color del texto */
+    border-radius: 20px; /* Borde redondeado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease;
 }
 
 .large-button:hover {
     background-color: #5a3d6a; /* Cambia el color de fondo al hacer hover */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
 }
 
 .large-button:active {
