@@ -1,6 +1,6 @@
 // Header.jsx
 import React from 'react';
-import './Header.css'; // Asegúrate de crear un archivo CSS para los estilos
+import './Header.css'; 
 
 const Header = () => {
   return (

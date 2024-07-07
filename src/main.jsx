@@ -7,9 +7,12 @@ import MyList from './to do list/myList.jsx';
 import ButtonList from './Mylist_button';
 
 
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Header />
+    <MyList />
     <ButtonList buttonText="Mis listas" />
     <ButtonList buttonText="Nueva lista" />   
   </React.StrictMode>,
