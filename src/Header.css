@@ -1,0 +1,56 @@
+/* Header.css */
+.header {
+  background: linear-gradient(to right, #00457E, #2F70AF);
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+  padding: 1em 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+}
+
+.logo img {
+  width: 200px; /* Keeping the original size */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  padding: 10px; 
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.nav-item {
+  margin-right: 2em; /* Adjusted margin for better spacing */
+  letter-spacing: 1px; /* Adjusted letter spacing for better readability */
+  transition: transform 0.3s ease; /* Added transition for hover effect */
+}
+
+.nav-item:last-child {
+  margin-right: 0; /* No margin for the last item */
+}
+
+.nav-item a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold; /* Added bold for better emphasis */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.nav-item a:hover {
+  color:  #0000005f; /* Changed hover color to gold */
+}
+
+.nav-item:hover {
+  transform: scale(1.1); /* Slight scaling on hover */
+}
