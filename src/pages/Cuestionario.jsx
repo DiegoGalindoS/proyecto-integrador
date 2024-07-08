@@ -1,105 +1,77 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import './Cuestionairo.css';
+import { useNavigate } from 'react-router-dom';
 
-function Cuestionario() {
-  const [nombres, setNombres] = useState('');
-  const [apellidos, setApellidos] = useState('');
-  const [genero, setGenero] = useState('');
-  const [correo, setCorreo] = useState('');
-  const [contraseña, setContraseña] = useState('');
-  const [confirmacionContraseña, setConfirmacionContraseña] = useState('');
-  const [usuarios, setUsuarios] = useState([]);
+function Cuestionario({ onCreateUser }) {
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    nombres: '',
+    apellidos: '',
+    genero: '',
+    correo: '',
+    contraseña: '',
+    confirmarContraseña: ''
+  });
 
-  const navigate = useNavigate(); 
+  const handleSubmit = () => {
 
-  useEffect(() => {
-    const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios')) || [];
-    setUsuarios(usuariosGuardados);
-  }, []);
+    onCreateUser(userData); 
+    navigate('/'); 
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (contraseña !== confirmacionContraseña) {
-      alert('Las contraseñas no coinciden');
-      return;
-    }
-    const nuevoUsuario = {
-      nombres,
-      apellidos,
-      genero,
-      correo,
-      contraseña,
-    };
-    const nuevosUsuarios = [...usuarios, nuevoUsuario];
-    setUsuarios(nuevosUsuarios);
-    localStorage.setItem('usuarios', JSON.stringify(nuevosUsuarios)); 
-
-    
-    setNombres('');
-    setApellidos('');
-    setGenero('');
-    setCorreo('');
-    setContraseña('');
-    setConfirmacionContraseña('');
-
-    
-    navigate('/');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value
+    });
   };
 
   return (
     <div className='Container'>
       <h1>Cuestionario de Registro</h1>
-      <form onSubmit={handleSubmit}>
-        <div className='Nombres'>
-          <p>Nombres:</p>
-          <input type="text" value={nombres} onChange={(e) => setNombres(e.target.value)} />
-        </div>
-        <div className='Apellidos'>
-          <p>Apellidos:</p>
-          <input type="text" value={apellidos} onChange={(e) => setApellidos(e.target.value)} />
-        </div>
-        <div className='Genero'>
-          <p>Género:</p>
-          <div className="GeneroOpciones">
-            <div>
-              <input type="radio" id="hombre" name="genero" value="Hombre" onChange={(e) => setGenero(e.target.value)} />
-              <label htmlFor="hombre">Hombre</label>
-            </div>
-            <div>
-              <input type="radio" id="mujer" name="genero" value="Mujer" onChange={(e) => setGenero(e.target.value)} />
-              <label htmlFor="mujer">Mujer</label>
-            </div>
+      <div className='Nombres'>
+        <p>Nombres:</p>
+        <input type="text" name="nombres" value={userData.nombres} onChange={handleChange} />
+      </div>
+      <div className='Apellidos'>
+        <p>Apellidos:</p>
+        <input type="text" name="apellidos" value={userData.apellidos} onChange={handleChange} />
+      </div>
+      <div className='Genero'>
+        <p>Género:</p>
+        <div className="GeneroOpciones">
+          <div>
+            <input type="checkbox" id="checkbox1" name="genero" value="Hombre" onChange={handleChange} />
+            <label htmlFor="checkbox1">Hombre</label>
+          </div>
+          <div>
+            <input type="checkbox" id="checkbox2" name="genero" value="Mujer" onChange={handleChange} />
+            <label htmlFor="checkbox2">Mujer</label>
           </div>
         </div>
-        <div className='Email'>
-          <p>Correo:</p>
-          <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} />
-        </div>
-        <div className='Contraseña'>
-          <p>Contraseña:</p>
-          <input type="password" value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
-        </div>
-        <div className='ConfirmacionContraseña'>
-          <p>Confirmar Contraseña:</p>
-          <input type="password" value={confirmacionContraseña} onChange={(e) => setConfirmacionContraseña(e.target.value)} />
-        </div>
-        <div className='Guardar'>
-          <button type="submit">Guardar</button>
-        </div>
-      </form>
-      <h2>Usuarios Registrados</h2>
-      <ul>
-        {usuarios.map((usuario, index) => (
-          <li key={index}>
-            {usuario.nombres} {usuario.apellidos} - {usuario.genero} - {usuario.correo}
-          </li>
-        ))}
-      </ul>
+      </div>
+      <div className='Email'>
+        <p>Correo:</p>
+        <input type="text" name="correo" value={userData.correo} onChange={handleChange} />
+      </div>
+      <div className='Save'>
+        <p>Contraseña:</p>
+        <input type="password" name="contraseña" value={userData.contraseña} onChange={handleChange} />
+      </div>
+      <div className='ConfirmacionSave'>
+        <p>Confirmar Contraseña:</p>
+        <input type="password" name="confirmarContraseña" value={userData.confirmarContraseña} onChange={handleChange} />
+      </div>
+      <div className='Guardar'>
+        <button onClick={handleSubmit}>Guardar</button>
+      </div>
     </div>
   );
 }
 
 export default Cuestionario;
+
+
 
 
