@@ -1,30 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Cuestionairo.css';
 import { useNavigate } from 'react-router-dom';
 
-function Cuestionario({ onCreateUser }) {
+function Cuestionario() {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState({
-    nombres: '',
-    apellidos: '',
-    genero: '',
-    correo: '',
-    contraseña: '',
-    confirmarContraseña: ''
-  });
 
   const handleSubmit = () => {
-
-    onCreateUser(userData); 
-    navigate('/'); 
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value
-    });
+    navigate('/');
   };
 
   return (
@@ -32,36 +14,36 @@ function Cuestionario({ onCreateUser }) {
       <h1>Cuestionario de Registro</h1>
       <div className='Nombres'>
         <p>Nombres:</p>
-        <input type="text" name="nombres" value={userData.nombres} onChange={handleChange} />
+        <input type="text" id="nombres" />
       </div>
       <div className='Apellidos'>
         <p>Apellidos:</p>
-        <input type="text" name="apellidos" value={userData.apellidos} onChange={handleChange} />
+        <input type="text" id="apellidos" />
       </div>
       <div className='Genero'>
         <p>Género:</p>
         <div className="GeneroOpciones">
           <div>
-            <input type="checkbox" id="checkbox1" name="genero" value="Hombre" onChange={handleChange} />
+            <input type="checkbox" id="checkbox1" name="genero" value="Hombre" />
             <label htmlFor="checkbox1">Hombre</label>
           </div>
           <div>
-            <input type="checkbox" id="checkbox2" name="genero" value="Mujer" onChange={handleChange} />
+            <input type="checkbox" id="checkbox2" name="genero" value="Mujer" />
             <label htmlFor="checkbox2">Mujer</label>
           </div>
         </div>
       </div>
       <div className='Email'>
         <p>Correo:</p>
-        <input type="text" name="correo" value={userData.correo} onChange={handleChange} />
+        <input type="text" id="correo" />
       </div>
       <div className='Save'>
         <p>Contraseña:</p>
-        <input type="password" name="contraseña" value={userData.contraseña} onChange={handleChange} />
+        <input type="password" id="contraseña" />
       </div>
       <div className='ConfirmacionSave'>
         <p>Confirmar Contraseña:</p>
-        <input type="password" name="confirmarContraseña" value={userData.confirmarContraseña} onChange={handleChange} />
+        <input type="password" id="confirmarContraseña" />
       </div>
       <div className='Guardar'>
         <button onClick={handleSubmit}>Guardar</button>
@@ -71,7 +53,5 @@ function Cuestionario({ onCreateUser }) {
 }
 
 export default Cuestionario;
-
-
 
 
