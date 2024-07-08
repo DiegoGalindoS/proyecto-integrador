@@ -6,7 +6,7 @@
   align-items: center; 
   height: 100vh; 
   margin: 0; 
-  background-color: #f0f0f0; 
+  background: linear-gradient(to right, #00457E, #2F70AF); 
   font-family: Arial, sans-serif; 
 }
 
@@ -14,12 +14,17 @@
   width: 100%; 
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center; 
   align-items: center; 
   padding: 20px;
   background-color: #ffffff; 
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-container img {
+  margin-bottom: 30px; /* Aumentar el espacio entre la imagen y el formulario */
 }
 
 .app-container .Usuario,
@@ -34,7 +39,7 @@
 .app-container .Contraseña p,
 .app-container .ConfirmacionContraseña p {
   margin: 0;
-  color: #666;
+  color: white;
   font-weight: bold;
   width: 150px; 
   text-align: left;
@@ -54,8 +59,9 @@
 
 .app-container .Buttons {
   display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 20px; /* Espacio uniforme entre los botones */
+  margin-top: 20px; /* Aumentar el margen superior */
 }
 
 .app-container .Buttons button {
@@ -66,7 +72,6 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 13px; 
-  margin: 0 5px; 
 }
 
 .app-container .Buttons button:hover {

@@ -1,16 +1,17 @@
 .button-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
     height: 30vh;
+    margin-bottom: 20px; /* Añade un espacio entre los botones */
 }
 
 .large-button {
-    width: 200px; /* Ancho fijo */
-    height: 50px; /* Altura fija */
-    font-size: 1.5rem; /* Tamaño del texto */
-    background-color: #2f70af; /* Color de fondo */
+    width: 50%; /* Ocupa el 50% del ancho disponible */
+    max-width: 400px; /* Define un ancho máximo para los botones */
+    padding: 20px 40px; /* Añade padding para más espacio interior */
+    font-size: 3rem; /* Tamaño del texto */
+    background-color: #509ae4; /* Color de fondo */
     color: white; /* Color del texto */
     border-radius: 20px; /* Borde redondeado */
     display: flex;
@@ -19,13 +20,16 @@
     text-decoration: none;
     border: none;
     outline: none;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade una sombra para darle profundidad */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Añade una transición para el color y el movimiento */
 }
 
 .large-button:hover {
-    background-color: #5a3d6a; /* Cambia el color de fondo al hacer hover */
+    background-color: #1377dc; 
+    transform: translateY(-2px); 
 }
 
 .large-button:active {
-    background-color: #3e2a4d; /* Cambia el color de fondo al hacer clic */
+    background-color: #3e2a4d; 
+    transform: translateY(0); 
 }
