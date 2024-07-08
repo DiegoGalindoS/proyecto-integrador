@@ -90,7 +90,7 @@ function MyList() {
 
   return (
     <div className="myList">
-      <h1>Nueva Lista</h1>
+      
 
       <div className="todo-wrapper">
         <div className="todo-input">
