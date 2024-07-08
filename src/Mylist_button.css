@@ -1,32 +1,32 @@
 
 .button-container {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
+    justify-content: center; 
+    align-items: center; 
     height: 30vh;
-    margin-bottom: 20px; /* Añade un espacio entre los botones */
+    margin-bottom: 20px; 
 }
 
 .large-button {
-    width: 50%; /* Ocupa el 50% del ancho disponible */
-    max-width: 400px; /* Define un ancho máximo para los botones */
-    padding: 20px 40px; /* Añade padding para más espacio interior */
-    font-size: 3rem; /* Tamaño del texto */
-    background-color: #509ae4; /* Color de fondo */
-    color: white; /* Color del texto */
-    border-radius: 20px; /* Borde redondeado */
+    width: 50%; 
+    max-width: 400px;
+    padding: 20px 40px; 
+    font-size: 3rem; 
+    background-color: #1377dc; 
+    color: white; 
+    border-radius: 20px; 
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
     border: none;
     outline: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade una sombra para darle profundidad */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Añade una transición para el color y el movimiento */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 
 .large-button:hover {
-    background-color: #1377dc; 
+    background-color: #509ae4; 
     transform: translateY(-2px); 
 }
 

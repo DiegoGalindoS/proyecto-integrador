@@ -7,7 +7,7 @@ function MainLayout() {
   return (
     <>
       <Header />
-      <ButtonList buttonText="Mis listas" />
+      <ButtonList buttonText="Mis actividades" to="/completed-tasks"/>
       <ButtonList buttonText="Nueva lista" to="/my-list" />
       
     </>

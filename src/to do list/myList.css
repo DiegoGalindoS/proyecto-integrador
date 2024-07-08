@@ -1,7 +1,10 @@
-
-h1{
-    text-align: center;
+.myList{
+    background: linear-gradient(to right, #00457e4f, #2f6faf5b); 
+    color: white;
+    overflow: hidden;
 }
+
+
 .todo-wrapper{
     background-color: #353434;
     padding: 2%;
