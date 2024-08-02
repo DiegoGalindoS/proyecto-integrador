@@ -1,57 +1,121 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Cuestionairo.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Cuestionario() {
+  const [formData, setFormData] = useState({
+    nombres: '',
+    apellidos: '',
+    genero: '',
+    email: '',
+    password: '',
+  });
+
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    navigate('/');
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Evita el comportamiento predeterminado del formulario
+
+    try {
+      await axios.post('http://localhost:3000/api/register', formData);
+      navigate('/');
+    } catch (error) {
+      console.error('Error al registrar el usuario:', error);
+      setError(error.response ? error.response.data : 'Error al registrar el usuario');
+    }
   };
 
   return (
-    <div className='Container'>
+    <div className="container">
       <h1>Cuestionario de Registro</h1>
-      <div className='Nombres'>
-        <p>Nombres:</p>
-        <input type="text" id="nombres" />
-      </div>
-      <div className='Apellidos'>
-        <p>Apellidos:</p>
-        <input type="text" id="apellidos" />
-      </div>
-      <div className='Genero'>
-        <p>Género:</p>
-        <div className="GeneroOpciones">
-          <div>
-            <input type="checkbox" id="checkbox1" name="genero" value="Hombre" />
-            <label htmlFor="checkbox1">Hombre</label>
-          </div>
-          <div>
-            <input type="checkbox" id="checkbox2" name="genero" value="Mujer" />
-            <label htmlFor="checkbox2">Mujer</label>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <div className="nombres">
+          <label htmlFor="nombres">Nombres:</label>
+          <input
+            type="text"
+            id="nombres"
+            name="nombres"
+            value={formData.nombres}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="apellidos">
+          <label htmlFor="apellidos">Apellidos:</label>
+          <input
+            type="text"
+            id="apellidos"
+            name="apellidos"
+            value={formData.apellidos}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="genero">
+          <label>Género:</label>
+          <div className="generoOpciones">
+            <div>
+              <input
+                type="radio"
+                id="hombre"
+                name="genero"
+                value="Hombre"
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="hombre">Hombre</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="mujer"
+                name="genero"
+                value="Mujer"
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="mujer">Mujer</label>
+            </div>
           </div>
         </div>
-      </div>
-      <div className='Email'>
-        <p>Correo:</p>
-        <input type="text" id="correo" />
-      </div>
-      <div className='Save'>
-        <p>Contraseña:</p>
-        <input type="password" id="contraseña" />
-      </div>
-      <div className='ConfirmacionSave'>
-        <p>Confirmar Contraseña:</p>
-        <input type="password" id="confirmarContraseña" />
-      </div>
-      <div className='Guardar'>
-        <button onClick={handleSubmit}>Guardar</button>
-      </div>
+        <div className="email">
+          <label htmlFor="email">Correo:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="password">
+          <label htmlFor="password">Contraseña:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="guardar">
+          <button type="submit">Guardar</button>
+        </div>
+      </form>
     </div>
   );
 }
 
 export default Cuestionario;
-
-
