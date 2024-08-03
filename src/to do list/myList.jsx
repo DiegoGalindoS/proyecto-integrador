@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import './myList.css';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsCheckLg } from 'react-icons/bs';
-import { FiEdit2 } from 'react-icons/fi'; 
+import { FiEdit2 } from 'react-icons/fi';
 
 function MyList() {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [isCompleteScreen, setIsCompleteScreen] = useState(false);
   const [allTodos, setTodos] = useState([]);
   const [newTitle, setNewTitle] = useState("");
@@ -12,6 +15,26 @@ function MyList() {
   const [completedTodos, setCompletedTodos] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+  const [listName, setListName] = useState(""); // Nuevo estado para el nombre de la lista
+
+  useEffect(() => {
+    // Cargar la lista correspondiente desde el backend
+    const fetchList = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/lists/${id}`);
+        if (response.ok) {
+          const list = await response.json();
+          setTodos([]);
+          setListName(list.nombre); // Establece el nombre de la lista
+        } else {
+          console.error('Failed to fetch list:', await response.text());
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchList();
+  }, [id]);
 
   // Función para añadir nueva tarea o actualizar tarea existente
   const handleAddOrUpdateTodo = () => {
@@ -90,9 +113,8 @@ function MyList() {
 
   return (
     <div className="myList">
-      
-
       <div className="todo-wrapper">
+        <h1 className="list-title">{listName}</h1> {/* Muestra el nombre de la lista */}
         <div className="todo-input">
           <div className="todo-input-item">
             <label>Título</label>
@@ -100,7 +122,7 @@ function MyList() {
               type="text"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              placeholder="¿Cuál es la tarea?"/>
+              placeholder="¿Cuál es la tarea?" />
           </div>
           <div className="todo-input-item">
             <label>Descripción</label>
@@ -108,7 +130,7 @@ function MyList() {
               type="text"
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
-              placeholder="¿Cuál es la descripción?"/>
+              placeholder="¿Cuál es la descripción?" />
           </div>
           <div className="todo-input-item">
             <button type="button" onClick={handleAddOrUpdateTodo} className="primaryBtn">
@@ -140,13 +162,13 @@ function MyList() {
               <div>
                 <AiOutlineDelete
                   className="icon"
-                  onClick={() => handleDeleteTodo(index)}/>
+                  onClick={() => handleDeleteTodo(index)} />
                 <BsCheckLg
                   className="check-icon"
                   onClick={() => handleComplete(index)} />
                 <FiEdit2
                   className="edit-icon"
-                  onClick={() => handleEditTodo(index)}/>
+                  onClick={() => handleEditTodo(index)} />
               </div>
             </div>
           ))}

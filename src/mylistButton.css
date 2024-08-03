@@ -1,0 +1,91 @@
+/* mylistButton.css */
+
+.button {
+    font-family: 'Arial', sans-serif;
+    /* Otros estilos comunes */
+  }
+  
+  .create-button {
+    font-family: 'Arial', sans-serif;
+    /* Otros estilos específicos */
+  }
+  
+  .send-button {
+    font-family: 'Arial', sans-serif;
+    /* Otros estilos específicos */
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .input-field {
+    font-family: 'Arial', sans-serif;
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 300px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-field:focus {
+    border-color: #4CAF50;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 30vh;
+    margin-bottom: 20px; 
+  }
+  
+  .main-button {
+    font-family: 'Arial', sans-serif;
+    width: 50%; 
+    max-width: 400px;
+    padding: 20px 40px; 
+    font-size: 3rem; 
+    background-color: #1377dc; 
+    color: white; 
+    border-radius: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+  }
+  
+  .main-button:hover {
+    background-color: #509ae4; 
+    transform: translateY(-2px); 
+  }
+  
+  .submit-button {
+    font-family: 'Arial', sans-serif;
+    background-color: #008CBA; /* Azul */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #007bb5;
+  }
+  

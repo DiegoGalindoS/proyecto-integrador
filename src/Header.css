@@ -1,7 +1,7 @@
 /* Header.css */
 .header {
   background: linear-gradient(to right, #00457E, #2F70AF);
-  font-family: 'Times New Roman', Times, serif;
+  
   color: white;
   padding: 1em 2em;
   display: flex;
@@ -11,7 +11,7 @@
 }
 
 .logo img {
-  width: 200px; /* Keeping the original size */
+  width: 100px; /* Keeping the original size */
   height: auto;
   display: block;
   margin: 0 auto;

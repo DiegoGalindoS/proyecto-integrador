@@ -14,7 +14,7 @@ const Header = () => {
             <Link to="/home">Inicio</Link>
           </li>
           <li className="nav-item">
-            <Link to="/my-list">Listas</Link>
+            <Link to="/all-lists">Todas las Listas</Link> 
           </li>
           <li className="nav-item">
             <Link to="/completed-tasks">Mis actividades</Link>
