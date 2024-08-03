@@ -15,17 +15,15 @@ function MyList() {
   const [completedTodos, setCompletedTodos] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
-  const [listName, setListName] = useState(""); // Nuevo estado para el nombre de la lista
+  const [listName, setListName] = useState("");
 
   useEffect(() => {
-    // Cargar la lista correspondiente desde el backend
     const fetchList = async () => {
       try {
         const response = await fetch(`http://localhost:3001/api/lists/${id}`);
         if (response.ok) {
           const list = await response.json();
-          setTodos([]);
-          setListName(list.nombre); // Establece el nombre de la lista
+          setListName(list.nombre);
         } else {
           console.error('Failed to fetch list:', await response.text());
         }
@@ -36,30 +34,51 @@ function MyList() {
     fetchList();
   }, [id]);
 
-  // Función para añadir nueva tarea o actualizar tarea existente
-  const handleAddOrUpdateTodo = () => {
-    if (isEditing) {
-      const updatedTodos = allTodos.map((todo, index) => {
-        if (index === editIndex) {
-          return { title: newTitle, description: newDescription };
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/lists/${id}/todos`);
+        if (response.ok) {
+          const todos = await response.json();
+          setTodos(todos.filter(todo => todo.status === 'incomplete'));
+          setCompletedTodos(todos.filter(todo => todo.status === 'complete'));
+        } else {
+          console.error('Failed to fetch todos:', await response.text());
         }
-        return todo;
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchTodos();
+  }, [id]);
+
+  const handleAddOrUpdateTodo = async () => {
+    if (isEditing) {
+      const updatedTodo = { title: newTitle, description: newDescription };
+      const response = await fetch(`http://localhost:3001/api/todos/${allTodos[editIndex].id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedTodo),
       });
+      const result = await response.json();
+      const updatedTodos = allTodos.map((todo, index) => (index === editIndex ? result : todo));
       setTodos(updatedTodos);
-      localStorage.setItem('todolist', JSON.stringify(updatedTodos));
       setIsEditing(false);
       setEditIndex(null);
     } else {
-      const newTodoItem = { title: newTitle, description: newDescription };
-      const updatedTodoArr = [...allTodos, newTodoItem];
-      setTodos(updatedTodoArr);
-      localStorage.setItem('todolist', JSON.stringify(updatedTodoArr));
+      const newTodo = { title: newTitle, description: newDescription, status: 'incomplete' };
+      const response = await fetch(`http://localhost:3001/api/lists/${id}/todos`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newTodo),
+      });
+      const result = await response.json();
+      setTodos([...allTodos, result]);
     }
     setNewTitle("");
     setNewDescription("");
   };
 
-  // Función para editar tarea
   const handleEditTodo = (index) => {
     const todo = allTodos[index];
     setNewTitle(todo.title);
@@ -68,53 +87,34 @@ function MyList() {
     setEditIndex(index);
   };
 
-  // Función para eliminar tarea
-  const handleDeleteTodo = (index) => {
-    const updatedTodos = allTodos.filter((_, i) => i !== index);
-    setTodos(updatedTodos);
-    localStorage.setItem('todolist', JSON.stringify(updatedTodos));
+  const handleDeleteTodo = async (index) => {
+    await fetch(`http://localhost:3001/api/todos/${allTodos[index].id}`, { method: 'DELETE' });
+    setTodos(allTodos.filter((_, i) => i !== index));
   };
 
-  // Función para eliminar tarea completada
-  const handleDeleteCompletedTodo = (index) => {
-    const updatedCompletedTodos = completedTodos.filter((_, i) => i !== index);
-    setCompletedTodos(updatedCompletedTodos);
-    localStorage.setItem('completedTodos', JSON.stringify(updatedCompletedTodos));
+  const handleDeleteCompletedTodo = async (index) => {
+    await fetch(`http://localhost:3001/api/todos/${completedTodos[index].id}`, { method: 'DELETE' });
+    setCompletedTodos(completedTodos.filter((_, i) => i !== index));
   };
 
-  // Función para marcar como completado
-  const handleComplete = (index) => {
+  const handleComplete = async (index) => {
     const now = new Date();
-    const completedOn = now.toLocaleDateString() + ' a las ' + now.toLocaleTimeString();
-
-    const completedItem = {
-      ...allTodos[index],
-      completedOn,
-    };
-
-    const updatedCompletedArr = [...completedTodos, completedItem];
-    setCompletedTodos(updatedCompletedArr);
-    localStorage.setItem('completedTodos', JSON.stringify(updatedCompletedArr));
-
-    handleDeleteTodo(index);
+    const completedOn = now.toISOString();
+    const completedItem = { ...allTodos[index], status: 'complete', completed_on: completedOn };
+    const response = await fetch(`http://localhost:3001/api/todos/${allTodos[index].id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(completedItem),
+    });
+    const result = await response.json();
+    setCompletedTodos([...completedTodos, result]);
+    setTodos(allTodos.filter((_, i) => i !== index));
   };
-
-  // Cargar tareas desde localStorage
-  useEffect(() => {
-    const savedTodos = JSON.parse(localStorage.getItem('todolist'));
-    const savedCompletedTodos = JSON.parse(localStorage.getItem('completedTodos'));
-    if (savedTodos) {
-      setTodos(savedTodos);
-    }
-    if (savedCompletedTodos) {
-      setCompletedTodos(savedCompletedTodos);
-    }
-  }, []);
 
   return (
     <div className="myList">
       <div className="todo-wrapper">
-        <h1 className="list-title">{listName}</h1> {/* Muestra el nombre de la lista */}
+        <h1 className="list-title">{listName}</h1>
         <div className="todo-input">
           <div className="todo-input-item">
             <label>Título</label>
@@ -177,7 +177,7 @@ function MyList() {
               <div>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-                <p>Completado el: {item.completedOn}</p>
+                <p>Completado el: {new Date(item.completed_on).toLocaleString()}</p>
               </div>
               <div>
                 <AiOutlineDelete
@@ -193,3 +193,4 @@ function MyList() {
 }
 
 export default MyList;
+
