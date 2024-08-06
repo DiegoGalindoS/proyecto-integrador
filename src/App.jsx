@@ -15,8 +15,8 @@ function App() {
   const [loading, setLoading] = useState(false); // Nuevo estado para manejar la carga
 
   const handleLogin = async () => {
-    setLoading(true); // Activar el estado de carga
-    setError(''); // Limpiar el error anterior
+    setLoading(true);
+    setError('');
 
     try {
       const response = await axios.post('http://localhost:3000/api/login', {
@@ -27,9 +27,9 @@ function App() {
       navigate('/home'); // Navega a la página de inicio después del login exitoso
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
-      setError('Email o contraseña incorrectos'); // Muestra el error en el estado
+      setError(error.response && error.response.data ? error.response.data.error : 'Error desconocido'); // Utiliza el mensaje de error del servidor si está disponible
     } finally {
-      setLoading(false); // Desactivar el estado de carga
+      setLoading(false);
     }
   };
 

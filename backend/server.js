@@ -4,20 +4,13 @@ import express from 'express';
 import cors from 'cors';
 import pkg from 'pg'; // Importa el módulo pg completo
 import registerRoutes from './routes/registerRoutes.js';
+import loginRoutes from './routes/loginRoutes.js';
 
 const { Pool } = pkg; // Extrae Pool del paquete pg
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Configura la conexión a la base de datos PostgreSQL
-const pool = new Pool({
-  user: 'user',
-  host: 'localhost',
-  database: 'loginem',
-  password: '123',
-  port: 5432,
-});
 
 // Middleware para parsear JSON y habilitar CORS
 app.use(express.json());
@@ -28,6 +21,7 @@ app.locals.pool = pool;
 
 // Rutas
 app.use('/api/register', registerRoutes);
+app.use('/api/login', loginRoutes);
 
 // Manejo de errores global (opcional, pero recomendado)
 app.use((err, req, res, next) => {
