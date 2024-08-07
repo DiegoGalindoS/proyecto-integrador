@@ -1,5 +1,5 @@
 import express from 'express';
-import { encontrarUsuarioPorCredenciales } from '../models/RegistroUsuario.js'; // Asegúrate de que la ruta y el nombre del archivo sean correctos
+import { encontrarUsuarioPorCredenciales } from '../model/RegistroUsuario.js'; // Asegúrate de que la ruta y el nombre del archivo sean correctos
 
 const router = express.Router();
 

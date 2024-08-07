@@ -5,6 +5,8 @@ import cors from 'cors';
 import pkg from 'pg'; // Importa el módulo pg completo
 import registerRoutes from './routes/registerRoutes.js';
 import loginRoutes from './routes/loginRoutes.js';
+import pool from './config/database.js';
+
 
 const { Pool } = pkg; // Extrae Pool del paquete pg
 
@@ -22,6 +24,7 @@ app.locals.pool = pool;
 // Rutas
 app.use('/api/register', registerRoutes);
 app.use('/api/login', loginRoutes);
+
 
 // Manejo de errores global (opcional, pero recomendado)
 app.use((err, req, res, next) => {

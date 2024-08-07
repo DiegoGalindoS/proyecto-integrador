@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './Cuestionairo.css';
+import React, { useState, useEffect } from 'react';
+import './Cuestionairo.css'; // Asegúrate que el nombre del archivo CSS esté correctamente escrito
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -10,10 +10,28 @@ function Cuestionario() {
     genero: '',
     email: '',
     password: '',
+    pais_id: '' // Nombre del campo corregido para coincidir con el select
   });
 
   const [error, setError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+  const [paises, setPaises] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Cargar países desde el backend
+    const cargarPaises = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/register/paises'); // Ruta corregida para cargar países
+        setPaises(response.data);
+      } catch (error) {
+        console.error('Error al cargar los países:', error);
+        setError('No se pudieron cargar los países.'); // Mostrar error en la UI
+      }
+    };
+
+    cargarPaises();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -22,15 +40,48 @@ function Cuestionario() {
     });
   };
 
+  const validatePassword = (password) => {
+    const minLength = 4;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password.length < minLength) {
+      return 'La contraseña debe tener al menos 4 caracteres.';
+    }
+    if (!hasUpperCase) {
+      return 'La contraseña debe contener al menos una letra mayúscula.';
+    }
+    if (!hasLowerCase) {
+      return 'La contraseña debe contener al menos una letra minúscula.';
+    }
+    if (!hasNumber) {
+      return 'La contraseña debe contener al menos un número.';
+    }
+    if (!hasSpecialChar) {
+      return 'La contraseña debe contener al menos un carácter especial.';
+    }
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault(); // Evita el comportamiento predeterminado del formulario
 
+    const passwordValidationError = validatePassword(formData.password);
+    if (passwordValidationError) {
+      setPasswordError(passwordValidationError);
+      return;
+    }
+
+    setPasswordError(null);
+
     try {
       await axios.post('http://localhost:3000/api/register', formData);
-      navigate('/');
+      navigate('/'); // Navegación post-registro (Asegúrate que esta ruta sea correcta según tu estructura de rutas)
     } catch (error) {
       console.error('Error al registrar el usuario:', error);
-      setError(error.response ? error.response.data : 'Error al registrar el usuario');
+      setError(error.response && error.response.data.error ? error.response.data.error : 'Error al registrar el usuario');
     }
   };
 
@@ -38,6 +89,7 @@ function Cuestionario() {
     <div className="container">
       <h1>Cuestionario de Registro</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
       <form onSubmit={handleSubmit}>
         <div className="nombres">
           <label htmlFor="nombres">Nombres:</label>
@@ -64,28 +116,24 @@ function Cuestionario() {
         <div className="genero">
           <label>Género:</label>
           <div className="generoOpciones">
-            <div>
-              <input
-                type="radio"
-                id="hombre"
-                name="genero"
-                value="Hombre"
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="hombre">Hombre</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="mujer"
-                name="genero"
-                value="Mujer"
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="mujer">Mujer</label>
-            </div>
+            <input
+              type="radio"
+              id="hombre"
+              name="genero"
+              value="Hombre"
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="hombre">Hombre</label>
+            <input
+              type="radio"
+              id="mujer"
+              name="genero"
+              value="Mujer"
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="mujer">Mujer</label>
           </div>
         </div>
         <div className="email">
@@ -109,6 +157,23 @@ function Cuestionario() {
             onChange={handleChange}
             required
           />
+        </div>
+        <div className="pais">
+          <label htmlFor="pais_id">País:</label>
+          <select
+            id="pais_id"
+            name="pais_id"
+            value={formData.pais_id}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Seleccione un país</option>
+            {paises.map(pais => (
+              <option key={pais.id} value={pais.id}>
+                {pais.nombre}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="guardar">
           <button type="submit">Guardar</button>
