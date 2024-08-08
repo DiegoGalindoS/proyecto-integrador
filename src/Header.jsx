@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Header.css'; 
+import './Header.css';
 
-const Header = () => {
+const Header = ({ user }) => {
   return (
     <header className="header">
       <div className="logo">
-        <img src="images/logo.png" alt="Logo" />
+        <img src="/images/logo.png" alt="Logo" />
       </div>
       <nav className="nav">
         <ul className="nav-list">
@@ -19,6 +19,11 @@ const Header = () => {
           <li className="nav-item">
             <Link to="/completed-tasks">Mis actividades</Link>
           </li>
+          {user?.perfil === 'Administrador' && (
+            <li className="nav-item">
+              <Link to="/administrar">Admin</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

@@ -10,7 +10,8 @@ function Cuestionario() {
     genero: '',
     email: '',
     password: '',
-    pais_id: '' // Nombre del campo corregido para coincidir con el select
+    pais_id: '',
+    confirmar_password: '' // Nombre del campo corregido para coincidir con el select
   });
 
   const [error, setError] = useState(null);
@@ -67,15 +68,20 @@ function Cuestionario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Evita el comportamiento predeterminado del formulario
-
+  
     const passwordValidationError = validatePassword(formData.password);
     if (passwordValidationError) {
       setPasswordError(passwordValidationError);
       return;
     }
-
+  
+    if (formData.password !== formData.confirmar_password) {
+      setPasswordError('Las contraseñas no coinciden.');
+      return;
+    }
+  
     setPasswordError(null);
-
+  
     try {
       await axios.post('http://localhost:3000/api/register', formData);
       navigate('/'); // Navegación post-registro (Asegúrate que esta ruta sea correcta según tu estructura de rutas)
@@ -84,7 +90,7 @@ function Cuestionario() {
       setError(error.response && error.response.data.error ? error.response.data.error : 'Error al registrar el usuario');
     }
   };
-
+  
   return (
     <div className="container">
       <h1>Cuestionario de Registro</h1>
@@ -154,6 +160,17 @@ function Cuestionario() {
             id="password"
             name="password"
             value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="confirmar_password">
+          <label htmlFor="confirmar_password">Confirmar Contraseña:</label>
+          <input
+            type="password"
+            id="confirmar_password"
+            name="confirmar_password"
+            value={formData.confirmar_password}
             onChange={handleChange}
             required
           />
