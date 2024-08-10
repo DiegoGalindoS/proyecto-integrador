@@ -1,15 +1,17 @@
 import React from 'react';
 import Header from './Header';
-import MyList from './to do list/myList';
 import ButtonList from './Mylist_button';
 
-function MainLayout() {
+function MainLayout({ perfil }) {
+  console.log('Perfil en MainLayout:', perfil); // Verifica que el perfil llegue aquí
+
+  if (!perfil) return <div>Cargando perfil...</div>; // Evita renderizar si perfil es undefined
+
   return (
     <>
-      <Header />
-      <ButtonList buttonText="Mis actividades" to="/completed-tasks"/>
+      <Header perfil={perfil} />
+      <ButtonList buttonText="Mis actividades" to="/completed-tasks" />
       <ButtonList buttonText="Nueva lista" to="/my-list" />
-      
     </>
   );
 }

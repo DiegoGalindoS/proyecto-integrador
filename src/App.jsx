@@ -1,6 +1,4 @@
-// App.jsx
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import Cuestionario from './pages/Cuestionario';
@@ -12,7 +10,8 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Nuevo estado para manejar la carga
+  const [loading, setLoading] = useState(false);
+  const [perfil, setPerfil] = useState(null); // Estado para guardar el perfil del usuario
 
   const handleLogin = async () => {
     setLoading(true);
@@ -24,14 +23,29 @@ function App() {
         password,
       });
       console.log('Login successful:', response.data);
-      navigate('/home'); // Navega a la página de inicio después del login exitoso
+
+      // Verifica la estructura de la respuesta
+      console.log('Estructura de respuesta:', response.data);
+      const userPerfil = response.data.usuario.perfil;
+      console.log('Perfil recibido:', userPerfil);
+      setPerfil(userPerfil);
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
-      setError(error.response && error.response.data ? error.response.data.error : 'Error desconocido'); // Utiliza el mensaje de error del servidor si está disponible
+      setError(error.response && error.response.data ? error.response.data.error : 'Error desconocido');
     } finally {
       setLoading(false);
     }
   };
+
+  // UseEffect para manejar la navegación después de que el perfil esté definido
+  useEffect(() => {
+    if (perfil) {
+      console.log('Navegando a /home con perfil:', perfil);
+      navigate('/home'); // Navega a la página de inicio después de que perfil esté definido
+    }
+  }, [perfil, navigate]);
+
+  console.log('Perfil en App:', perfil);
 
   return (
     <div className='app-container'>
@@ -48,8 +62,8 @@ function App() {
                 id="username" 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
-                autoComplete="email" // Agrega el atributo autocomplete
-                disabled={loading} // Desactiva el input mientras se carga
+                autoComplete="email"
+                disabled={loading}
               />
             </div>
             <div className='Contraseña'>
@@ -59,8 +73,8 @@ function App() {
                 id="password" 
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
-                autoComplete="current-password" // Agrega el atributo autocomplete
-                disabled={loading} // Desactiva el input mientras se carga
+                autoComplete="current-password"
+                disabled={loading}
               />
             </div>
             {error && <div className='Error'>{error}</div>}
@@ -73,7 +87,10 @@ function App() {
           </div>
         } />
         <Route path="/cuestionario" element={<Cuestionario />} />
-        <Route path="/home" element={<MainLayout />} />
+        <Route 
+          path="/home" 
+          element={perfil ? <MainLayout perfil={perfil} /> : <div>Cargando perfil...</div>} 
+        />
       </Routes>
     </div>
   );

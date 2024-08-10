@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
-const Header = ({ user }) => {
+const Header = ({ perfil }) => {
+  useEffect(() => {
+    console.log('Perfil en Header:', perfil);
+  }, [perfil]);
+
   return (
     <header className="header">
       <div className="logo">
@@ -19,15 +23,15 @@ const Header = ({ user }) => {
           <li className="nav-item">
             <Link to="/completed-tasks">Mis actividades</Link>
           </li>
-          {user?.perfil === 'Administrador' && (
+          {perfil === 'Administrador' && (
             <li className="nav-item">
-              <Link to="/administrar">Admin</Link>
+              <Link to="/administrar">Administrar</Link>
             </li>
           )}
         </ul>
       </nav>
     </header>
   );
-}
+};
 
 export default Header;
