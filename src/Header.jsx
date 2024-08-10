@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
 const Header = ({ perfil }) => {
-  useEffect(() => {
-    console.log('Perfil en Header:', perfil);
-  }, [perfil]);
+  console.log('Perfil en Header:', perfil);
 
   return (
     <header className="header">

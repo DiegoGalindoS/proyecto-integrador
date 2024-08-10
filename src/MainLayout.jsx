@@ -1,11 +1,12 @@
-import React from 'react';
+// src/MainLayout.jsx
+import React, { useContext } from 'react';
+import { UserContext } from './context/UserContext'; // Importa UserContext
 import Header from './Header';
 import ButtonList from './Mylist_button';
 
-function MainLayout({ perfil }) {
-  console.log('Perfil en MainLayout:', perfil); // Verifica que el perfil llegue aquí
-
-  if (!perfil) return <div>Cargando perfil...</div>; // Evita renderizar si perfil es undefined
+function MainLayout() {
+  const { perfil } = useContext(UserContext); // Usa el contexto
+  console.log('Perfil en MainLayout:', perfil);
 
   return (
     <>

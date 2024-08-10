@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
+// src/App.jsx
+import React, { useState, useEffect, useContext } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import './App.css';
+import axios from 'axios';
+import { UserContext } from './context/UserContext'; // Importa UserContext
 import Cuestionario from './pages/Cuestionario';
 import MainLayout from './MainLayout';
-import axios from 'axios';
 
 function App() {
   const navigate = useNavigate();
+  const { setPerfil } = useContext(UserContext); // Usa setPerfil del contexto
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [perfil, setPerfil] = useState(null); // Estado para guardar el perfil del usuario
 
   const handleLogin = async () => {
     setLoading(true);
@@ -22,30 +23,15 @@ function App() {
         email,
         password,
       });
-      console.log('Login successful:', response.data);
-
-      // Verifica la estructura de la respuesta
-      console.log('Estructura de respuesta:', response.data);
       const userPerfil = response.data.usuario.perfil;
-      console.log('Perfil recibido:', userPerfil);
-      setPerfil(userPerfil);
+      setPerfil(userPerfil); // Establece el perfil en el contexto
+      navigate('/home');
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      setError(error.response && error.response.data ? error.response.data.error : 'Error desconocido');
+      setError('Error desconocido');
     } finally {
       setLoading(false);
     }
   };
-
-  // UseEffect para manejar la navegación después de que el perfil esté definido
-  useEffect(() => {
-    if (perfil) {
-      console.log('Navegando a /home con perfil:', perfil);
-      navigate('/home'); // Navega a la página de inicio después de que perfil esté definido
-    }
-  }, [perfil, navigate]);
-
-  console.log('Perfil en App:', perfil);
 
   return (
     <div className='app-container'>
@@ -87,10 +73,7 @@ function App() {
           </div>
         } />
         <Route path="/cuestionario" element={<Cuestionario />} />
-        <Route 
-          path="/home" 
-          element={perfil ? <MainLayout perfil={perfil} /> : <div>Cargando perfil...</div>} 
-        />
+        <Route path="/home" element={<MainLayout />} />
       </Routes>
     </div>
   );
