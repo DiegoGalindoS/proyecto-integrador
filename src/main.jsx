@@ -7,7 +7,7 @@ import App from './App';
 import MainLayout from './MainLayout';
 import Cuestionario from './pages/Cuestionario';
 import Administrar from './Administrar'; // Asegúrate de que esta ruta sea correcta
-import EditUsuario from './EditUsuario';
+
  // Asegúrate de que esta ruta sea correcta
 import MyList from './to do list/myList';
 import CompletedTasks from './CompletedTask';
@@ -26,7 +26,7 @@ root.render(
           <Route path="/my-list" element={<MyList />} />
           <Route path="/completed-tasks" element={<CompletedTasks />} />
           <Route path="/administrar" element={<Administrar />} />
-          <Route path="/editar-usuario/:id" element={<EditUsuario />} /> {/* Agrega la ruta de edición */}
+          {/* Agrega la ruta de edición */}
         </Routes>
       </Router>
     </UserProvider>
