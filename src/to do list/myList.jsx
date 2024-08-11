@@ -3,6 +3,7 @@ import './myList.css';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsCheckLg } from 'react-icons/bs';
 import { FiEdit2 } from 'react-icons/fi'; 
+import axios from 'axios';
 
 function MyList() {
   const [isCompleteScreen, setIsCompleteScreen] = useState(false);
@@ -12,6 +13,7 @@ function MyList() {
   const [completedTodos, setCompletedTodos] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+  const [frase, setFrase] = useState(''); // Estado para almacenar la frase
 
   // Función para añadir nueva tarea o actualizar tarea existente
   const handleAddOrUpdateTodo = () => {
@@ -88,9 +90,26 @@ function MyList() {
     }
   }, []);
 
+  // Cargar frase desde la API
+  useEffect(() => {
+    const fetchFrase = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/frases');
+        if (response.data.length > 0) {
+          setFrase(response.data[0].texto); // Almacena la frase en el estado
+        }
+      } catch (error) {
+        console.error('Error al obtener la frase:', error);
+      }
+    };
+
+    fetchFrase();
+  }, []);
+
   return (
     <div className="myList">
-      
+      {/* Mostrar la frase en la parte superior */}
+      {frase && <p className="frase-del-dia">Frase del día: "{frase}"</p>}
 
       <div className="todo-wrapper">
         <div className="todo-input">
@@ -100,7 +119,7 @@ function MyList() {
               type="text"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              placeholder="¿Cuál es la tarea?"/>
+              placeholder="¿Cuál es la tarea?" />
           </div>
           <div className="todo-input-item">
             <label>Descripción</label>
@@ -108,7 +127,7 @@ function MyList() {
               type="text"
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
-              placeholder="¿Cuál es la descripción?"/>
+              placeholder="¿Cuál es la descripción?" />
           </div>
           <div className="todo-input-item">
             <button type="button" onClick={handleAddOrUpdateTodo} className="primaryBtn">
@@ -140,13 +159,13 @@ function MyList() {
               <div>
                 <AiOutlineDelete
                   className="icon"
-                  onClick={() => handleDeleteTodo(index)}/>
+                  onClick={() => handleDeleteTodo(index)} />
                 <BsCheckLg
                   className="check-icon"
                   onClick={() => handleComplete(index)} />
                 <FiEdit2
                   className="edit-icon"
-                  onClick={() => handleEditTodo(index)}/>
+                  onClick={() => handleEditTodo(index)} />
               </div>
             </div>
           ))}
