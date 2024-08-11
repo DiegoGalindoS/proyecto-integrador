@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Administrar.css'; // Asegúrate de importar el archivo CSS
+import './Administrar.css'; // Importa el archivo CSS
 
 function Administrar() {
   const [usuarios, setUsuarios] = useState([]);
@@ -25,7 +25,6 @@ function Administrar() {
     fetchUsuarios();
   }, []);
 
-  // Función para manejar la eliminación de un usuario
   const handleEliminar = async (email) => {
     try {
       await axios.delete(`http://localhost:3000/api/users/${email}`);
@@ -36,7 +35,6 @@ function Administrar() {
     }
   };
 
-  // Función para manejar el inicio de la edición de un usuario
   const handleEditar = (email) => {
     const userToEdit = usuarios.find(usuario => usuario.email === email);
     setEditUser(email);
@@ -47,7 +45,6 @@ function Administrar() {
     });
   };
 
-  // Función para manejar los cambios en el formulario de edición
   const handleEditFormChange = (e) => {
     const { name, value } = e.target;
     setEditFormData(prevState => ({
@@ -56,7 +53,6 @@ function Administrar() {
     }));
   };
 
-  // Función para manejar la actualización de un usuario
   const handleEditFormSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -72,13 +68,13 @@ function Administrar() {
   };
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className='error-message'>Error: {error}</div>;
   }
 
   return (
-    <div>
+    <div className='admin-container'>
       <h1>Administrar Usuarios</h1>
-      <table>
+      <table className='admin-table'>
         <thead>
           <tr>
             <th>Nombre</th>
@@ -96,8 +92,8 @@ function Administrar() {
               <td>{usuario.email}</td>
               <td>{usuario.pais_id}</td>
               <td>
-                <button onClick={() => handleEliminar(usuario.email)}>Eliminar</button>
-                <button onClick={() => handleEditar(usuario.email)}>Editar</button>
+                <button className='delete' onClick={() => handleEliminar(usuario.email)}>Eliminar</button>
+                <button className='edit' onClick={() => handleEditar(usuario.email)}>Editar</button>
               </td>
             </tr>
           ))}
@@ -105,7 +101,7 @@ function Administrar() {
       </table>
 
       {editUser && (
-        <form onSubmit={handleEditFormSubmit}>
+        <form className='edit-form' onSubmit={handleEditFormSubmit}>
           <h2>Editar Usuario</h2>
           <label>
             Nombre:
@@ -134,8 +130,8 @@ function Administrar() {
               onChange={handleEditFormChange}
             />
           </label>
-          <button type="submit">Guardar Cambios</button>
-          <button type="button" onClick={() => setEditUser(null)}>Cancelar</button>
+          <button type="submit" className='save'>Guardar</button>
+          <button type="button" className='cancel' onClick={() => setEditUser(null)}>Cancelar</button>
         </form>
       )}
     </div>

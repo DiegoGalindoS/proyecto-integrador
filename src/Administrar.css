@@ -1,82 +1,131 @@
 /* Administrar.css */
 
-/* Estilo general para el contenedor */
-div {
+/* Contenedor principal */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Altura mínima para ocupar toda la pantalla */
     padding: 20px;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: url('/path-to-your-image/sergey-pesterev-JV78PVf3gGI-unsplash.jpg') no-repeat center center fixed;
+    background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
   }
   
-  /* Estilo para el encabezado de la página */
-  h1 {
+  /* Título principal */
+  .admin-container h1 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
   }
   
-  /* Estilo para la tabla */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Tabla de usuarios */
+  .admin-table {
+    width: 80%; /* Ajusta el ancho de la tabla según lo necesario */
+    border-collapse: separate; /* Separar las celdas */
+    border-spacing: 0 15px; /* Espaciado entre filas */
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra alrededor de la tabla */
+    border-radius: 5px; /* Bordes redondeados para la tabla */
   }
   
-  /* Estilo para el encabezado de la tabla */
-  th {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
+  .admin-table th, .admin-table td {
+    padding: 15px; /* Mayor espacio interno */
     text-align: left;
-    font-weight: bold;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borde más suave */
   }
   
-  /* Estilo para las celdas de la tabla */
-  td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
+  .admin-table th {
+    background-color: rgba(244, 244, 244, 0.8); /* Fondo de encabezado con opacidad */
   }
   
-  /* Estilo para la fila de la tabla al pasar el ratón por encima */
-  tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  /* Estilo para los botones */
-  button {
-    background-color: #007bff;
-    color: #fff;
+  /* Botones de acción */
+  .admin-table button {
+    padding: 5px 10px;
     border: none;
-    padding: 8px 12px;
-    margin: 0 5px;
-    border-radius: 4px;
+    border-radius: 5px;
+    color: #fff;
     cursor: pointer;
     font-size: 14px;
-    transition: background-color 0.3s ease;
+    margin-right: 5px;
   }
   
-  /* Estilo para los botones al pasar el ratón por encima */
-  button:hover {
-    background-color: #0056b3;
+  .admin-table button.delete {
+    background-color: #e74c3c;
   }
   
-  /* Estilo para los botones de eliminar */
-  button:first-of-type {
-    background-color: #dc3545;
+  .admin-table button.delete:hover {
+    background-color: #c0392b;
   }
   
-  button:first-of-type:hover {
-    background-color: #c82333;
+  .admin-table button.edit {
+    background-color: #3498db;
   }
   
-  /* Estilo para los botones de editar */
-  button:last-of-type {
-    background-color: #28a745;
+  .admin-table button.edit:hover {
+    background-color: #2980b9;
   }
   
-  button:last-of-type:hover {
-    background-color: #218838;
+  /* Formulario de edición */
+  .edit-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(249, 249, 249, 0.9); /* Fondo del formulario con opacidad */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Ajusta el ancho del formulario según lo necesario */
+  }
+  
+  .edit-form h2 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .edit-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .edit-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .edit-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  
+  .edit-form button.save {
+    background-color: #2ecc71;
+  }
+  
+  .edit-form button.save:hover {
+    background-color: #27ae60;
+  }
+  
+  .edit-form button.cancel {
+    background-color: #95a5a6;
+  }
+  
+  .edit-form button.cancel:hover {
+    background-color: #7f8c8d;
+  }
+  
+  /* Mensaje de error */
+  .error-message {
+    color: #e74c3c;
+    margin-top: 20px;
+    text-align: center;
   }
   
