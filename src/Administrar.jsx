@@ -1,52 +1,145 @@
-// src/components/Administrar.jsx
-
 import React, { useEffect, useState } from 'react';
-import { getUsers } from './services/userServices.js';
- // Importa el servicio para usuarios
+import axios from 'axios';
+import './Administrar.css'; // Asegúrate de importar el archivo CSS
 
-const Administrar = () => {
+function Administrar() {
   const [usuarios, setUsuarios] = useState([]);
+  const [error, setError] = useState(null);
+  const [editUser, setEditUser] = useState(null); // Estado para manejar el usuario en edición
+  const [editFormData, setEditFormData] = useState({
+    nombres: '',
+    apellidos: '',
+    pais_id: '',
+  }); // Estado para manejar los datos del formulario de edición
 
   useEffect(() => {
     const fetchUsuarios = async () => {
-      const data = await getUsers();
-      setUsuarios(data);
+      try {
+        const response = await axios.get('http://localhost:3000/api/users');
+        setUsuarios(response.data);
+      } catch (error) {
+        setError('Error al obtener los usuarios');
+      }
     };
 
     fetchUsuarios();
   }, []);
 
+  // Función para manejar la eliminación de un usuario
+  const handleEliminar = async (email) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/users/${email}`);
+      setUsuarios(usuarios.filter(usuario => usuario.email !== email));
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error);
+      setError('Error al eliminar el usuario');
+    }
+  };
+
+  // Función para manejar el inicio de la edición de un usuario
+  const handleEditar = (email) => {
+    const userToEdit = usuarios.find(usuario => usuario.email === email);
+    setEditUser(email);
+    setEditFormData({
+      nombres: userToEdit.nombres,
+      apellidos: userToEdit.apellidos,
+      pais_id: userToEdit.pais_id,
+    });
+  };
+
+  // Función para manejar los cambios en el formulario de edición
+  const handleEditFormChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  // Función para manejar la actualización de un usuario
+  const handleEditFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:3000/api/users/${editUser}`, editFormData);
+      setUsuarios(usuarios.map(usuario => (
+        usuario.email === editUser ? { ...usuario, ...editFormData } : usuario
+      )));
+      setEditUser(null); // Terminar la edición
+    } catch (error) {
+      console.error('Error al actualizar el usuario:', error);
+      setError('Error al actualizar el usuario');
+    }
+  };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div>
-      <h2>Administrar Usuarios</h2>
-      <table className="table">
+      <h1>Administrar Usuarios</h1>
+      <table>
         <thead>
           <tr>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Email</th>
             <th>País</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {usuarios.length > 0 ? (
-            usuarios.map((usuario, index) => (
-              <tr key={index}>
-                <td>{usuario.nombre}</td>
-                <td>{usuario.apellido}</td>
-                <td>{usuario.email}</td>
-                <td>{usuario.pais}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4">No hay usuarios disponibles</td>
+          {usuarios.map((usuario) => (
+            <tr key={usuario.email}>
+              <td>{usuario.nombres}</td>
+              <td>{usuario.apellidos}</td>
+              <td>{usuario.email}</td>
+              <td>{usuario.pais_id}</td>
+              <td>
+                <button onClick={() => handleEliminar(usuario.email)}>Eliminar</button>
+                <button onClick={() => handleEditar(usuario.email)}>Editar</button>
+              </td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
+
+      {editUser && (
+        <form onSubmit={handleEditFormSubmit}>
+          <h2>Editar Usuario</h2>
+          <label>
+            Nombre:
+            <input
+              type="text"
+              name="nombres"
+              value={editFormData.nombres}
+              onChange={handleEditFormChange}
+            />
+          </label>
+          <label>
+            Apellido:
+            <input
+              type="text"
+              name="apellidos"
+              value={editFormData.apellidos}
+              onChange={handleEditFormChange}
+            />
+          </label>
+          <label>
+            País:
+            <input
+              type="text"
+              name="pais_id"
+              value={editFormData.pais_id}
+              onChange={handleEditFormChange}
+            />
+          </label>
+          <button type="submit">Guardar Cambios</button>
+          <button type="button" onClick={() => setEditUser(null)}>Cancelar</button>
+        </form>
+      )}
     </div>
   );
-};
+}
 
 export default Administrar;
