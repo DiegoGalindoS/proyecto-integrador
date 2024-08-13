@@ -1,25 +1,19 @@
-import React from 'react';
-import ButtonList from './mylistButton.jsx';
-import Header from './Header'; // Asegúrate de que el componente Header exista y esté correctamente importado
-
+// src/MainLayout.jsx
+import React, { useContext } from 'react';
+import { UserContext } from './UserContext'; // Importa UserContext
+import Header from './Header';
+import ButtonList from './mylistButton';
 
 function MainLayout() {
-  const userId = 1; // Aquí deberías usar el ID del usuario real
+  const { perfil } = useContext(UserContext); // Usa el contexto
 
+  console.log('Perfil en MainLayout:', perfil);
 
   return (
     <>
-      <Header />
-      <ButtonList 
-        buttonText="Mis actividades" 
-        to="/completed-tasks" 
-        isCreateButton={false} 
-      />
-      <ButtonList 
-        buttonText="Nueva lista" 
-        userId={userId} 
-        isCreateButton={true} 
-      />
+      <Header perfil={perfil} />
+      <ButtonList buttonText="Mis actividades" to="/completed-tasks" />
+      <ButtonList buttonText="Nueva lista" to="/my-list" />
     </>
   );
 }

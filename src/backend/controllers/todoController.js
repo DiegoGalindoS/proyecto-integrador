@@ -3,7 +3,7 @@ import {
   getTodosByListId,
   updateTodo,
   deleteTodo,
-} from "../../../models/todoModel.js";
+} from "../models/todoModel.js";
 
 export const createTodoHandler = async (req, res) => {
   const { listId } = req.params;

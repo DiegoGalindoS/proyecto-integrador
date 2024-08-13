@@ -1,8 +1,4 @@
-import {
-  createList,
-  getListById,
-  getAllLists,
-} from "../../../models/listModel.js";
+import { createList, getListById, getAllLists } from "../models/listModel.js";
 
 export const createListHandler = async (req, res) => {
   const { name } = req.body;

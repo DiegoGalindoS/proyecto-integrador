@@ -3,9 +3,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
-import { UserContext } from './context/UserContext'; // Importa UserContext
-import Cuestionario from './pages/Cuestionario';
+import Cuestionario from './Cuestionario';
 import MainLayout from './MainLayout';
+import { UserProvider } from './UserContext';
 
 function App() {
   const navigate = useNavigate();
