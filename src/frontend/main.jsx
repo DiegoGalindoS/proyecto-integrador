@@ -11,11 +11,12 @@ import MyList from './myList';
 import CompletedTasks from './CompletedTask';
 import ListDetails from './ListDetails'; // Importa el componente de detalles
 import AllLists from './AllLists'; // Importa el componente de todas las listas
-
+import { UserProvider } from './UserContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
+    <UserProvider>
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
@@ -48,7 +49,10 @@ root.render(
             <AllLists /> {/* Renderiza AllLists aquí */}
           </>
         } />
+<Route path="/administrar" element={<Administrar />} />
+{/* Agrega la ruta de edición */}
       </Routes>
     </Router>
+    </UserProvider>
   </React.StrictMode>
 );
