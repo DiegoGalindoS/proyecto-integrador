@@ -1,27 +1,29 @@
-/* Estilos básicos para la aplicación */
+/* Estilos específicos para la aplicación dentro de .app-container */
+
 .app-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+  margin: 0; 
+  font-family: Arial, sans-serif; 
 }
 
 .app-container .Container {
-  width: 100%;
-  max-width: 400px; /* Ajusta el tamaño máximo */
+  width: 100%; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
   padding: 20px;
-  background-color: #ffffff;
+  background-color: #ffffff; 
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .app-container img {
-  width: 100%;
-  max-width: 150px;
-  margin-bottom: 30px; /* Espacio entre la imagen y el formulario */
+  margin-bottom: 30px; /* Aumentar el espacio entre la imagen y el formulario */
 }
 
 .app-container .Usuario,
@@ -36,10 +38,11 @@
 .app-container .Contraseña p,
 .app-container .ConfirmacionContraseña p {
   margin: 0;
-  color: #333;
+  color: white;
   font-weight: bold;
-  width: 100px;
-  font-size: 13px;
+  width: 150px; 
+  text-align: left;
+  font-size: 13px; 
 }
 
 .app-container .Usuario input,
@@ -50,13 +53,14 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 13px; 
 }
 
 .app-container .Buttons {
   display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 20px; /* Espacio uniforme entre los botones */
+  margin-top: 20px; /* Aumentar el margen superior */
 }
 
 .app-container .Buttons button {
@@ -66,29 +70,9 @@
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px; 
 }
 
 .app-container .Buttons button:hover {
   background-color: #0056b3;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .app-container .Container {
-    width: 90%;
-    padding: 15px;
-  }
-
-  .app-container .Usuario p,
-  .app-container .Contraseña p,
-  .app-container .ConfirmacionContraseña p {
-    width: auto;
-    margin-bottom: 5px;
-  }
-
-  .app-container .Buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
 }

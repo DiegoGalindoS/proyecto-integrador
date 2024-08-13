@@ -1,3 +1,4 @@
+// src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -5,47 +6,29 @@ import './index.css';
 import App from './App';
 import MainLayout from './MainLayout';
 import Cuestionario from './pages/Cuestionario';
-import Header from './Header';
+import Administrar from './Administrar'; // Asegúrate de que esta ruta sea correcta
+
+ // Asegúrate de que esta ruta sea correcta
 import MyList from './to do list/myList';
 import CompletedTasks from './CompletedTask';
-import ListDetails from './ListDetails'; // Importa el componente de detalles
-import AllLists from './AllLists'; // Importa el componente de todas las listas
+import { UserProvider } from './context/UserContext'; // Importa UserProvider
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/cuestionario" element={<Cuestionario />} />
-        <Route path="/home" element={<MainLayout />} />
-        <Route path="/my-list" element={
-          <>
-            <Header />
-            <MyList />
-          </>
-        } />
-        <Route path="/completed-tasks" element={
-          <>
-            <Header />
-            <CompletedTasks />
-          </>
-        } />
-        <Route path="/my-list/:id" element={
-          <>
-            <Header />
-            <MyList /> {/* Renderiza MyList aquí */}
-            <ListDetails /> {/* Ruta para los detalles de la lista */}
-          </>
-        } />
-        <Route path="/all-lists" element={
-          <>
-            <Header />
-            <AllLists /> {/* Renderiza AllLists aquí */}
-          </>
-        } />
-      </Routes>
-    </Router>
+    <UserProvider> {/* Envuelve tu aplicación con UserProvider */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/cuestionario" element={<Cuestionario />} />
+          <Route path="/home" element={<MainLayout />} />
+          <Route path="/my-list" element={<MyList />} />
+          <Route path="/completed-tasks" element={<CompletedTasks />} />
+          <Route path="/administrar" element={<Administrar />} />
+          {/* Agrega la ruta de edición */}
+        </Routes>
+      </Router>
+    </UserProvider>
   </React.StrictMode>
 );
