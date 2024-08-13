@@ -1,0 +1,8 @@
+.card-container {
+    margin-top: 10%;
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en varias filas si no caben en una sola fila */
+    justify-content: center; /* Centra las tarjetas horizontalmente */
+    gap: 16px; /* Espacio entre las tarjetas */
+  }
+  

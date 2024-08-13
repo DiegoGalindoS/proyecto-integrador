@@ -2,10 +2,12 @@
     background: linear-gradient(to right, #00457e4f, #2f6faf5b); 
     color: white;
     overflow: hidden;
+    z-index: 1;
+    position: relative;
 }
 
 .todo-wrapper{
-    background-color: #353434;
+    background-color: rgba(53, 52, 52, 0.8); /* Color #353434 con 80% opacidad */
     padding: 2%;
     width: fit-content;
     margin-left: auto;
@@ -52,7 +54,7 @@
 
 .todo-input-item input:focus{
     outline: none;
-    border: 2px solid rgb(0, 230, 122);
+    border: 2px solid rgb(53, 163, 163);
 }
 
 .primaryBtn{

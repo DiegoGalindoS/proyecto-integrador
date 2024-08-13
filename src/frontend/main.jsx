@@ -1,3 +1,4 @@
+// src/index.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -19,7 +20,9 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/cuestionario" element={<Cuestionario />} />
-        <Route path="/home" element={<MainLayout />} />
+        <Route path="/home" element={
+            <MainLayout />
+        } />
         <Route path="/my-list" element={
           <>
             <Header />

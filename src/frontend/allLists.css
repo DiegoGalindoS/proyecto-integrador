@@ -1,13 +1,13 @@
 .all-lists {
   padding: 20px;
-  background: linear-gradient(to right, #00457e4f, #2f6faf5b);
+  
   color: white;
-  min-height: 100vh;
+  
 }
 
 .all-lists h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .list-items {
@@ -21,7 +21,7 @@
 }
 
 .list-item {
-  background: #00203f;
+  background: rgba(0, 32, 63, 0.6);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -41,6 +41,3 @@
   font-size: 18px;
 }
 
-.list-link:hover {
-  text-decoration: underline;
-}

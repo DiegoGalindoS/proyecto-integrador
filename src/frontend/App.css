@@ -6,7 +6,7 @@
   height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
+  
 }
 
 .app-container .Container {
@@ -19,8 +19,8 @@
 }
 
 .app-container img {
-  width: 100%;
-  max-width: 150px;
+  width: 70%;
+  height: auto;
   margin-bottom: 30px; /* Espacio entre la imagen y el formulario */
 }
 

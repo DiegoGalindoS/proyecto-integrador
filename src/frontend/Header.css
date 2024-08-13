@@ -1,56 +1,45 @@
 /* Header.css */
 .header {
-  background: linear-gradient(to right, #00457E, #2F70AF);
   
-  color: white;
-  padding: 1em 2em;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 10%;
+  background-color: rgba(0, 0, 255, 0.1); /* Donde 0.1 representa la opacidad */
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+  z-index: 100;
 }
 
-.logo img {
-  width: 100px; /* Keeping the original size */
+img {
+  width: 200px; /* Keeping the original size */
   height: auto;
-  display: block;
-  margin: 0 auto;
-  padding: 10px; 
+
 }
 
-.nav {
-  display: flex;
-  align-items: center;
+.nav a {
+position: relative;
+font-size: 18px;
+color: #fff;
+font-weight: 500;
+margin-left: 40px;
+
 }
 
-.nav-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-}
+.nav a::before{
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  transition: width 0.3s ease;
+  width: 0; /* Inicialmente sin ancho */
+} 
 
-.nav-item {
-  margin-right: 2em; /* Adjusted margin for better spacing */
-  letter-spacing: 1px; /* Adjusted letter spacing for better readability */
-  transition: transform 0.3s ease; /* Added transition for hover effect */
-}
-
-.nav-item:last-child {
-  margin-right: 0; /* No margin for the last item */
-}
-
-.nav-item a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold; /* Added bold for better emphasis */
-  transition: color 0.3s ease; /* Smooth color transition */
-}
-
-.nav-item a:hover {
-  color:  #0000005f; /* Changed hover color to gold */
-}
-
-.nav-item:hover {
-  transform: scale(1.1); /* Slight scaling on hover */
+.nav a:hover::before{
+  width: 100%;
 }
