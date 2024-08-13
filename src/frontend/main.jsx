@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import MainLayout from './MainLayout';
-import Cuestionario from './pages/Cuestionario';
+import Cuestionario from './Cuestionario';
 import Header from './Header';
-import MyList from './to do list/myList';
+import MyList from './myList';
 import CompletedTasks from './CompletedTask';
 import ListDetails from './ListDetails'; // Importa el componente de detalles
 import AllLists from './AllLists'; // Importa el componente de todas las listas

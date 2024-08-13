@@ -10,7 +10,7 @@ const AllLists = () => {
       try {
         const response = await fetch('http://localhost:3001/api/lists'); // Ajusta la URL según tu API
         if (response.ok) {
-          const data = await response.json();
+          const data = await response.json(); 
           setLists(data);
         } else {
           console.error('Failed to fetch lists:', await response.text());
