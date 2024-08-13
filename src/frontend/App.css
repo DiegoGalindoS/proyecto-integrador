@@ -1,62 +1,70 @@
-/* Estilos básicos para la aplicación */
 .app-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
+  margin-top: 5px;
   font-family: Arial, sans-serif;
   
 }
 
-.app-container .Container {
+.app-container div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 400px; /* Ajusta el tamaño máximo */
+  max-width: 450px;
   padding: 20px;
-  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.05); /* Blanco con 80% opacidad */
 }
 
 .app-container img {
-  width: 70%;
+  width: 80%; /* Aumenta el tamaño de la imagen */
   height: auto;
   margin-bottom: 30px; /* Espacio entre la imagen y el formulario */
 }
 
 .app-container .Usuario,
-.app-container .Contraseña,
-.app-container .ConfirmacionContraseña {
+.app-container .Contraseña {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 .app-container .Usuario p,
-.app-container .Contraseña p,
-.app-container .ConfirmacionContraseña p {
-  margin: 0;
+.app-container .Contraseña p {
+  margin: 0 0 5px;
   color: #333;
   font-weight: bold;
-  width: 100px;
   font-size: 13px;
 }
 
 .app-container .Usuario input,
-.app-container .Contraseña input,
-.app-container .ConfirmacionContraseña input {
-  flex: 1;
+.app-container .Contraseña input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
   font-size: 14px;
+  width: 100%;
+}
+
+.app-container .Error {
+  color: red;
+  margin: 10px 0;
+  text-align: center;
 }
 
 .app-container .Buttons {
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
   margin-top: 20px;
+  gap: 10px; /* Espacio entre los botones */
 }
 
 .app-container .Buttons button {
@@ -67,6 +75,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  flex: 1;
 }
 
 .app-container .Buttons button:hover {
@@ -75,20 +84,16 @@
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .app-container .Container {
+  .app-container div {
     width: 90%;
     padding: 15px;
   }
 
-  .app-container .Usuario p,
-  .app-container .Contraseña p,
-  .app-container .ConfirmacionContraseña p {
-    width: auto;
-    margin-bottom: 5px;
+  .app-container .Buttons {
+    flex-direction: row; /* Asegura que los botones sigan estando uno al lado del otro */
   }
 
-  .app-container .Buttons {
-    flex-direction: column;
-    gap: 10px;
+  .app-container .Buttons button {
+    margin: 0;
   }
 }
