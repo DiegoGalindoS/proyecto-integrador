@@ -1,28 +1,21 @@
-import {
-  createTodo,
-  getTodosByListId,
-  updateTodo,
-  deleteTodo,
-} from "../models/todoModel.js";
+import * as TodoModel from "../models/todoModel.js";
 
-export const createTodoHandler = async (req, res) => {
+export const createTodo = async (req, res) => {
   const { listId } = req.params;
   const { title, description, status } = req.body;
-
   try {
-    const newTodo = await createTodo(listId, title, description, status);
-    res.status(201).json(newTodo);
+    const todo = await TodoModel.createTodo(listId, title, description, status);
+    res.status(201).json(todo);
   } catch (error) {
     console.error("Error creating todo:", error);
     res.status(500).json({ error: "Error creating todo" });
   }
 };
 
-export const getTodosByListIdHandler = async (req, res) => {
+export const getTodosByListId = async (req, res) => {
   const { listId } = req.params;
-
   try {
-    const todos = await getTodosByListId(listId);
+    const todos = await TodoModel.getTodosByListId(listId);
     res.status(200).json(todos);
   } catch (error) {
     console.error("Error fetching todos:", error);
@@ -30,30 +23,28 @@ export const getTodosByListIdHandler = async (req, res) => {
   }
 };
 
-export const updateTodoHandler = async (req, res) => {
+export const updateTodo = async (req, res) => {
   const { todoId } = req.params;
   const { title, description, status, completed_on } = req.body;
-
   try {
-    const updatedTodo = await updateTodo(
+    const todo = await TodoModel.updateTodo(
       todoId,
       title,
       description,
       status,
       completed_on
     );
-    res.status(200).json(updatedTodo);
+    res.status(200).json(todo);
   } catch (error) {
     console.error("Error updating todo:", error);
     res.status(500).json({ error: "Error updating todo" });
   }
 };
 
-export const deleteTodoHandler = async (req, res) => {
+export const deleteTodo = async (req, res) => {
   const { todoId } = req.params;
-
   try {
-    await deleteTodo(todoId);
+    await TodoModel.deleteTodo(todoId);
     res.status(204).send();
   } catch (error) {
     console.error("Error deleting todo:", error);

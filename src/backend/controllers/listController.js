@@ -1,22 +1,20 @@
-import { createList, getListById, getAllLists } from "../models/listModel.js";
+import * as ListModel from "../models/listModel.js";
 
-export const createListHandler = async (req, res) => {
+export const createList = async (req, res) => {
   const { name } = req.body;
-
   try {
-    const newList = await createList(name);
-    res.status(201).json(newList);
+    const list = await ListModel.createList(name);
+    res.status(201).json(list);
   } catch (error) {
     console.error("Error al crear la lista:", error);
     res.status(500).json({ error: "Error al crear la lista" });
   }
 };
 
-export const getListByIdHandler = async (req, res) => {
+export const getListById = async (req, res) => {
   const { id } = req.params;
-
   try {
-    const list = await getListById(id);
+    const list = await ListModel.getListById(id);
     if (list) {
       res.status(200).json(list);
     } else {
@@ -28,9 +26,9 @@ export const getListByIdHandler = async (req, res) => {
   }
 };
 
-export const getAllListsHandler = async (req, res) => {
+export const getAllLists = async (req, res) => {
   try {
-    const lists = await getAllLists();
+    const lists = await ListModel.getAllLists();
     res.status(200).json(lists);
   } catch (error) {
     console.error("Error al obtener las listas:", error);

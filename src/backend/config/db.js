@@ -1,13 +1,11 @@
 import pg from "pg";
 
-const { Pool } = pg;
+const { Client } = pg;
 
-const pool = new Pool({
+export const client = new Client({
   user: "postgres",
   host: "localhost",
   database: "echomind",
-  password: "123456",
+  password: "1234",
   port: 5432,
 });
-
-export default pool;
