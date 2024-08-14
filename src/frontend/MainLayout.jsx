@@ -2,16 +2,22 @@ import React from 'react';
 import CardComponent from './CardComponent';
 import Header from './Header';
 import './mainLayout.css'; // Asegúrate de tener este archivo CSS para el contenedor
+// src/MainLayout.jsx
+import { useContext } from 'react';
+import { UserContext } from './UserContext'; // Importa UserContext
+
 
 function MainLayout() {
-  const userId = 1; // Aquí deberías usar el ID del usuario real
-
+  const { perfil } = useContext(UserContext); // Usa el contexto
+  console.log('Perfil en MainLayout:', perfil);
+  const userId = 1;
   return (
     <>
-      <Header />
+    <Header perfil={perfil} />
+      
       <div className="card-container">
         <CardComponent 
-          buttonText="Mis listas" 
+          buttonText="Mis listas"  
           to="/all-lists" 
           isCreateButton={false} 
           title="Actividades" 
@@ -27,6 +33,7 @@ function MainLayout() {
           imageSrc="https://cdn-icons-png.flaticon.com/512/2285/2285516.png"
         />
       </div>
+ 
     </>
   );
 }

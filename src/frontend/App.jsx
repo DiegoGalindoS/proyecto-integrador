@@ -1,18 +1,18 @@
-// App.jsx
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './App.css';
+import { UserContext } from './UserContext'; // Importa UserContext
 import Cuestionario from './Cuestionario';
 import MainLayout from './MainLayout';
-import axios from 'axios';
 
 function App() {
   const navigate = useNavigate();
+  const { setPerfil } = useContext(UserContext); // Usa setPerfil del contexto
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Nuevo estado para manejar la carga
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     setLoading(true);
@@ -23,11 +23,11 @@ function App() {
         email,
         password,
       });
-      console.log('Login successful:', response.data);
-      navigate('/home'); // Navega a la página de inicio después del login exitoso
+      const userPerfil = response.data.usuario.perfil;
+      setPerfil(userPerfil); // Establece el perfil en el contexto
+      navigate('/home');
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      setError(error.response && error.response.data ? error.response.data.error : 'Error desconocido'); // Utiliza el mensaje de error del servidor si está disponible
+      setError('Error desconocido');
     } finally {
       setLoading(false);
     }
@@ -48,8 +48,8 @@ function App() {
                 id="username" 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
-                autoComplete="email" // Agrega el atributo autocomplete
-                disabled={loading} // Desactiva el input mientras se carga
+                autoComplete="email"
+                disabled={loading}
               />
             </div>
             <div className='Contraseña'>
@@ -59,8 +59,8 @@ function App() {
                 id="password" 
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
-                autoComplete="current-password" // Agrega el atributo autocomplete
-                disabled={loading} // Desactiva el input mientras se carga
+                autoComplete="current-password"
+                disabled={loading}
               />
             </div>
             {error && <div className='Error'>{error}</div>}

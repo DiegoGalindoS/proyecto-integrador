@@ -3,7 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './myList.css';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsCheckLg } from 'react-icons/bs';
-import { FiEdit2 } from 'react-icons/fi';
+import { FiEdit2 } from 'react-icons/fi'; 
+import axios from 'axios';
 
 function MyList() {
   const navigate = useNavigate();
@@ -15,43 +16,10 @@ function MyList() {
   const [completedTodos, setCompletedTodos] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
-  const [listName, setListName] = useState("");
+  const [listName, setListName] = useState(""); // Mover aquí
+  const [frase, setFrase] = useState(''); // Estado para almacenar la frase
 
-  useEffect(() => {
-    const fetchList = async () => {
-      try {
-        const response = await fetch(`http://localhost:3001/api/lists/${id}`);
-        if (response.ok) {
-          const list = await response.json();
-          setListName(list.nombre);
-        } else {
-          console.error('Failed to fetch list:', await response.text());
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    fetchList();
-  }, [id]);
-
-  useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const response = await fetch(`http://localhost:3001/api/lists/${id}/todos`);
-        if (response.ok) {
-          const todos = await response.json();
-          setTodos(todos.filter(todo => todo.status === 'incomplete'));
-          setCompletedTodos(todos.filter(todo => todo.status === 'complete'));
-        } else {
-          console.error('Failed to fetch todos:', await response.text());
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    fetchTodos();
-  }, [id]);
-
+  // Función para añadir nueva tarea o actualizar tarea existente
   const handleAddOrUpdateTodo = async () => {
     if (isEditing) {
       const updatedTodo = { title: newTitle, description: newDescription };
@@ -98,21 +66,106 @@ function MyList() {
   };
 
   const handleComplete = async (index) => {
+    const todo = allTodos[index];
     const now = new Date();
     const completedOn = now.toISOString();
-    const completedItem = { ...allTodos[index], status: 'complete', completed_on: completedOn };
-    const response = await fetch(`http://localhost:3001/api/todos/${allTodos[index].id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(completedItem),
-    });
-    const result = await response.json();
-    setCompletedTodos([...completedTodos, result]);
-    setTodos(allTodos.filter((_, i) => i !== index));
+  
+    const completedItem = {
+      ...todo,
+      status: 'complete',
+      completed_on: completedOn,
+    };
+  
+    try {
+      const response = await fetch(`http://localhost:3001/api/todos/${todo.id}`, { // Asegúrate de que `todo.id` es correcto
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(completedItem),
+      });
+  
+      if (response.ok) {
+        const updatedTodo = await response.json();
+        setCompletedTodos([...completedTodos, updatedTodo]);
+        setTodos(allTodos.filter((_, i) => i !== index));
+      } else {
+        console.error('Failed to update todo:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
+  ;
+
+  // Cargar tareas desde localStorage
+  useEffect(() => {
+    const savedTodos = JSON.parse(localStorage.getItem('todolist'));
+    const savedCompletedTodos = JSON.parse(localStorage.getItem('completedTodos'));
+    if (savedTodos) {
+      setTodos(savedTodos);
+    }
+    if (savedCompletedTodos) {
+      setCompletedTodos(savedCompletedTodos);
+    }
+  }, []);
+
+  // Cargar lista desde la API
+  useEffect(() => {
+    const fetchList = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/lists/${id}`);
+        if (response.ok) {
+          const list = await response.json();
+          setListName(list.nombre);
+        } else {
+          console.error('Failed to fetch list:', await response.text());
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchList();
+  }, [id]);
+
+  // Cargar tareas desde la API
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/lists/${id}/todos`);
+        if (response.ok) {
+          const todos = await response.json();
+          setTodos(todos.filter(todo => todo.status === 'incomplete'));
+          setCompletedTodos(todos.filter(todo => todo.status === 'complete'));
+        } else {
+          console.error('Failed to fetch todos:', await response.text());
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchTodos();
+  }, [id]);
+
+  // Cargar frase desde la API
+  useEffect(() => {
+    const fetchFrase = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/frases');
+        if (response.data.length > 0) {
+          setFrase(response.data[0].texto); // Almacena la frase en el estado
+        }
+      } catch (error) {
+        console.error('Error al obtener la frase:', error);
+      }
+    };
+
+    fetchFrase();
+  }, []);
 
   return (
     <div className="myList">
+      {/* Mostrar la frase en la parte superior */}
+      {frase && <p className="frase-del-dia">Frase del día: "{frase}"</p>}
+
       <div className="todo-wrapper">
         <h1 className="list-title">{listName}</h1>
         <div className="todo-input">
@@ -177,7 +230,7 @@ function MyList() {
               <div>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-                <p>Completado el: {new Date(item.completed_on).toLocaleString()}</p>
+                <p>Completado el: {new Date(item.completedOn).toLocaleString()}</p>
               </div>
               <div>
                 <AiOutlineDelete
@@ -193,4 +246,3 @@ function MyList() {
 }
 
 export default MyList;
-

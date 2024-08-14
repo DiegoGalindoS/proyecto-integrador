@@ -35,11 +35,14 @@
 }
 
 .app-container .Usuario p,
-.app-container .Contraseña p {
-  margin: 0 0 5px;
-  color: #333;
+.app-container .Contraseña p,
+.app-container .ConfirmacionContraseña p {
+  margin: 0;
+  color: white;
   font-weight: bold;
-  font-size: 13px;
+  width: 150px; 
+  text-align: left;
+  font-size: 13px; 
 }
 
 .app-container .Usuario input,

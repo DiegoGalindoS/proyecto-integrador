@@ -10,6 +10,7 @@
   padding: 20px;
   box-sizing: border-box;
   color: white;
+  
 }
 
 .container h1 {
@@ -19,16 +20,15 @@
 }
 
 /* Estilos para los campos del formulario */
-.nombres,
-.apellidos,
-.genero,
-.email,
-.password,
-.pais,
-.guardar {
+.Nombres,
+.Apellidos,
+.Genero,
+.Email,
+.Save,
+.ConfirmacionSave {
   width: 100%;
   max-width: 300px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .nombres label,
@@ -55,6 +55,7 @@
 /* Estilos para el botón de guardar */
 .guardar {
   text-align: center;
+  margin-top: 20px; /* Espaciado superior para separar el botón del formulario */
 }
 
 .guardar button {
@@ -75,8 +76,7 @@
 /* Estilos para los campos de texto y contraseñas */
 input[type="text"],
 input[type="password"],
-input[type="email"],
-select {
+input[type="email"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
