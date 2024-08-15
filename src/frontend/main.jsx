@@ -5,15 +5,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import MainLayout from './MainLayout';
-import Cuestionario from './Cuestionario';
-import Header from './Header';
-import MyList from './myList';
-import CompletedTasks from './CompletedTask';
-import ListDetails from './ListDetails'; // Importa el componente de detalles
-import AllLists from './AllLists'; // Importa el componente de todas las listas
-import Administrar from './Administrar';
-import { UserProvider } from './UserContext';
+import Cuestionario from './pages/Cuestionario';
+import Administrar from './Administrar'; // Asegúrate de que esta ruta sea correcta
 
+ // Asegúrate de que esta ruta sea correcta
+import MyList from './to do list/myList';
+import CompletedTasks from './CompletedTask';
+import { UserProvider } from './context/UserContext'; // Importa UserProvider
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
