@@ -68,16 +68,16 @@ function MyList() {
   const handleComplete = async (index) => {
     const todo = allTodos[index];
     const now = new Date();
-    const completedOn = now.toISOString();
+    const completedOn = now.toISOString();  // Formato ISO 8601
   
     const completedItem = {
       ...todo,
       status: 'complete',
-      completed_on: completedOn,
+      completed_on: completedOn,  // Asegúrate de que completed_on está en formato ISO
     };
   
     try {
-      const response = await fetch(`http://localhost:3001/api/todos/${todo.id}`, { // Asegúrate de que `todo.id` es correcto
+      const response = await fetch(`http://localhost:3001/api/todos/${todo.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(completedItem),
@@ -94,9 +94,7 @@ function MyList() {
       console.error('Error:', error);
     }
   };
-  ;
-
-  // Cargar tareas desde localStorage
+    // Cargar tareas desde localStorage
   useEffect(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todolist'));
     const savedCompletedTodos = JSON.parse(localStorage.getItem('completedTodos'));

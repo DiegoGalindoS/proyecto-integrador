@@ -1,4 +1,4 @@
-import pool from "../config/db.js";
+import { client } from "../config/db.js";
 
 // Función para crear un nuevo usuario
 export const crearUsuario = async (
@@ -16,7 +16,7 @@ export const crearUsuario = async (
     const query =
       "INSERT INTO registro_usuarios (nombres, apellidos, genero, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *";
     const values = [nombres, apellidos, genero, email, password];
-    const result = await pool.query(query, values);
+    const result = await client.query(query, values);
     return result.rows[0];
   } catch (error) {
     console.error("Error al crear usuario:", error);
@@ -34,7 +34,7 @@ export const encontrarUsuarioPorCredenciales = async (email, password) => {
     const query =
       "SELECT * FROM registro_usuarios WHERE email = $1 AND password = $2";
     const values = [email, password];
-    const result = await pool.query(query, values);
+    const result = await client.query(query, values);
     return result.rows[0];
   } catch (error) {
     console.error("Error al encontrar usuario:", error);

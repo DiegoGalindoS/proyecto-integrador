@@ -23,7 +23,7 @@ function Cuestionario() {
     // Cargar países desde el backend
     const cargarPaises = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/register/paises'); // Ruta corregida para cargar países
+        const response = await axios.get('http://localhost:3001/api/register/paises'); // Ruta corregida para cargar países
         setPaises(response.data);
       } catch (error) {
         console.error('Error al cargar los países:', error);
@@ -83,7 +83,7 @@ function Cuestionario() {
     setPasswordError(null);
   
     try {
-      await axios.post('http://localhost:3000/api/register', formData);
+      await axios.post('http://localhost:3001/api/register', formData);
       navigate('/'); // Navegación post-registro (Asegúrate que esta ruta sea correcta según tu estructura de rutas)
     } catch (error) {
       console.error('Error al registrar el usuario:', error);

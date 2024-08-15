@@ -15,19 +15,22 @@ export const getTodosByListId = async (listId) => {
   return result.rows;
 };
 
-export const updateTodo = async (req, res) => {
-  const { todoId } = req.params;
-  const { title, description, status, completed_on } = req.body;
-
+export const updateTodo = async (
+  todoId,
+  title,
+  description,
+  status,
+  completed_on
+) => {
   try {
     const result = await client.query(
       "UPDATE todos SET title = $1, description = $2, status = $3, completed_on = $4 WHERE id = $5 RETURNING *",
       [title, description, status, completed_on, todoId]
     );
-    res.status(200).json(result.rows[0]);
+    return result.rows[0]; // Retorna el resultado al controlador
   } catch (error) {
     console.error("Error updating todo:", error);
-    res.status(500).json({ error: "Error updating todo" });
+    throw error; // Lanza el error al controlador para su manejo
   }
 };
 

@@ -24,8 +24,11 @@ export const getTodosByListId = async (req, res) => {
 };
 
 export const updateTodo = async (req, res) => {
+  console.log("Request Params:", req.params); // Debería mostrar { todoId: 'valor' }
+
   const { todoId } = req.params;
   const { title, description, status, completed_on } = req.body;
+
   try {
     const todo = await TodoModel.updateTodo(
       todoId,
@@ -34,10 +37,10 @@ export const updateTodo = async (req, res) => {
       status,
       completed_on
     );
-    res.status(200).json(todo);
+    res.status(200).json(todo); // Responde con el objeto actualizado
   } catch (error) {
     console.error("Error updating todo:", error);
-    res.status(500).json({ error: "Error updating todo" });
+    res.status(500).json({ error: "Error updating todo" }); // Manejo de errores
   }
 };
 

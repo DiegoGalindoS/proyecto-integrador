@@ -22,7 +22,7 @@ export default function UserTable() {
   // Función para eliminar usuario (deberás implementar esto con la llamada al backend)
   const handleDelete = async (userId) => {
     try {
-      await fetch(`http://localhost:3000/api/admin/usuarios/${userId}`, {
+      await fetch(`http://localhost:3001/api/admin/usuarios/${userId}`, {
         method: 'DELETE'
       });
       // Actualizar la lista de usuarios

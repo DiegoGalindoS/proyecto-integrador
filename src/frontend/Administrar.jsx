@@ -15,7 +15,7 @@ function Administrar() {
   useEffect(() => {
     const fetchUsuarios = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/users');
+        const response = await axios.get('http://localhost:3001/api/users');
         setUsuarios(response.data);
       } catch (error) {
         setError('Error al obtener los usuarios');
@@ -27,7 +27,7 @@ function Administrar() {
 
   const handleEliminar = async (email) => {
     try {
-      await axios.delete(`http://localhost:3000/api/users/${email}`);
+      await axios.delete(`http://localhost:3001/api/users/${email}`);
       setUsuarios(usuarios.filter(usuario => usuario.email !== email));
     } catch (error) {
       console.error('Error al eliminar el usuario:', error);
@@ -56,7 +56,7 @@ function Administrar() {
   const handleEditFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:3000/api/users/${editUser}`, editFormData);
+      await axios.put(`http://localhost:3001/api/users/${editUser}`, editFormData);
       setUsuarios(usuarios.map(usuario => (
         usuario.email === editUser ? { ...usuario, ...editFormData } : usuario
       )));

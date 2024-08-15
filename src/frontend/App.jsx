@@ -19,7 +19,7 @@ function App() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:3000/api/login', {
+      const response = await axios.post('http://localhost:3001/api/login', {
         email,
         password,
       });

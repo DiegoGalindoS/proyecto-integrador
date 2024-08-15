@@ -1,32 +1,57 @@
-import express from 'express';
-import { crearUsuario } from '../model/RegistroUsuario.js';
+import express from "express";
+import { crearUsuario } from "../models/RegistroUsuario.js";
+import { client } from "../config/db.js";
 
 const router = express.Router();
-router.post('/', async (req, res) => {
-  const { nombres, apellidos, genero, email, password, confirmar_password, pais_id } = req.body;
 
-  if (!nombres || !apellidos || !genero || !email || !password || !pais_id || !confirmar_password) {
-    return res.status(400).json({ error: 'Todos los campos son requeridos' });
+router.post("/", async (req, res) => {
+  const {
+    nombres,
+    apellidos,
+    genero,
+    email,
+    password,
+    confirmar_password,
+    pais_id,
+  } = req.body;
+
+  if (
+    !nombres ||
+    !apellidos ||
+    !genero ||
+    !email ||
+    !password ||
+    !pais_id ||
+    !confirmar_password
+  ) {
+    return res.status(400).json({ error: "Todos los campos son requeridos" });
   }
 
   try {
     // Crear un nuevo usuario
-    const nuevoUsuario = await crearUsuario(nombres, apellidos, genero, email, password, confirmar_password, pais_id);
+    const nuevoUsuario = await crearUsuario(
+      nombres,
+      apellidos,
+      genero,
+      email,
+      password,
+      confirmar_password,
+      pais_id
+    );
     res.status(201).json(nuevoUsuario);
   } catch (error) {
-    console.error('Error al registrar el usuario:', error);
-    res.status(500).json({ error: 'Error al registrar el usuario' });
+    console.error("Error al registrar el usuario:", error);
+    res.status(500).json({ error: "Error al registrar el usuario" });
   }
 });
 
-router.get('/paises', async (req, res) => {
+router.get("/paises", async (req, res) => {
   try {
-    const pool = req.app.locals.pool;
-    const result = await pool.query('SELECT * FROM paises');
+    const result = await client.query("SELECT * FROM paises");
     res.json(result.rows);
   } catch (error) {
-    console.error('Error al obtener la lista de países:', error);
-    res.status(500).send('Error al obtener la lista de países');
+    console.error("Error al obtener la lista de países:", error);
+    res.status(500).send("Error al obtener la lista de países");
   }
 });
 

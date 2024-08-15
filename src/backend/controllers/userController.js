@@ -1,47 +1,41 @@
-import {
-  crearUsuario,
-  encontrarUsuarioPorCredenciales,
-} from "../models/userModel.js";
+import { client } from "../config/db.js";
 
-// Controlador para crear un nuevo usuario
-export const handleCreateUser = async (req, res) => {
-  const { nombres, apellidos, genero, email, password } = req.body;
-
-  if (!nombres || !apellidos || !genero || !email || !password) {
-    return res.status(400).json({ error: "Todos los campos son requeridos" });
-  }
+export const getUsers = async (req, res) => {
+  const query =
+    "SELECT nombres, apellidos, email, pais_id FROM registro_usuarios";
 
   try {
-    const nuevoUsuario = await crearUsuario(
-      nombres,
-      apellidos,
-      genero,
-      email,
-      password
-    );
-    res.status(201).json(nuevoUsuario);
-  } catch (error) {
-    console.error("Error al registrar el usuario:", error);
-    res.status(500).json({ error: "Error al registrar el usuario" });
+    const result = await client.query(query);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "No se encontraron usuarios" });
+    }
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error al obtener los usuarios", err);
+    res.status(500).json({ error: "Error al obtener los usuarios" });
   }
 };
 
-// Controlador para iniciar sesión
-export const handleLoginUser = async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ error: "Email y contraseña son requeridos" });
-  }
+// Controlador para actualizar el usuario
+export const updateUser = async (req, res) => {
+  const { email } = req.params; // Obtener el email del parámetro
+  const { nombres, apellidos, pais_id } = req.body; // Obtener los nuevos datos del cuerpo de la solicitud
 
   try {
-    const usuario = await encontrarUsuarioPorCredenciales(email, password);
-    if (!usuario) {
-      return res.status(401).json({ error: "Credenciales incorrectas" });
+    const result = await client.query(
+      `UPDATE registro_usuarios
+       SET nombres = $1, apellidos = $2, pais_id = $3
+       WHERE email = $4 RETURNING *`,
+      [nombres, apellidos, pais_id, email]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
-    res.status(200).json(usuario);
-  } catch (error) {
-    console.error("Error al iniciar sesión:", error);
-    res.status(500).json({ error: "Error al iniciar sesión" });
+
+    res.json({ message: "Usuario actualizado", user: result.rows[0] });
+  } catch (err) {
+    console.error("Error al actualizar el usuario:", err);
+    res.status(500).json({ error: "Error al actualizar el usuario" });
   }
 };
