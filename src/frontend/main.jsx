@@ -6,14 +6,14 @@ import './index.css';
 import App from './App';
 import MainLayout from './MainLayout';
 import Cuestionario from './Cuestionario';
+import Administrar from './Administrar'; // Asegúrate de que esta ruta sea correcta
 import Header from './Header';
+import ListDetails from './ListDetails';
+import AllLists from './AllLists'
+ // Asegúrate de que esta ruta sea correcta
 import MyList from './myList';
 import CompletedTasks from './CompletedTask';
-import ListDetails from './ListDetails'; // Importa el componente de detalles
-import AllLists from './AllLists'; // Importa el componente de todas las listas
-import Administrar from './Administrar';
-import { UserProvider } from './UserContext';
-
+import { UserProvider } from './UserContext'; // Importa UserProvider
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
