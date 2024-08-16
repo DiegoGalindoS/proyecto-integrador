@@ -1,5 +1,5 @@
 .myList{
-    background: linear-gradient(to right, #00457e4f, #2f6faf5b); 
+   
     color: white;
     overflow: hidden;
     z-index: 1;
@@ -39,11 +39,13 @@
     flex-direction: column;
     align-items: flex-start;
     margin-right: 25px;
+
 }
 
 .todo-input-item label{
     font-weight: bold;
     margin-bottom: 10px;
+    
 }
 
 .todo-input-item input{
@@ -111,7 +113,7 @@
 }
 
 .todo-list-item h3{
-    font-size: 30px;
+    font-size: 20px;
     color: white;
     font-weight: bold;
     margin: 0;
@@ -155,4 +157,21 @@
     color: rgb(4, 218, 218); 
     transform: scale(1.2); 
     transition: color 0.3s ease, transform 0.3s ease;
+}
+.frase-del-dia {
+    color: rgb(245, 245, 245);
+    text-align: justify; /* Justifica el texto */
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    height: 50px; /* Altura del contenedor */
+    margin-top: 20px; /* Espacio superior */
+    padding: 0 20px; /* Añade espacio interno a los lados */
+    background-color: rgba(93, 103, 155, 0.2); /* Fondo blanco con 20% opacidad */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente más pequeño */
+    line-height: 1.5; /* Espacio entre líneas */
+    max-width: 80%; /* Limita el ancho máximo */
+    margin-left: auto;
+    margin-right: auto; /* Centra horizontalmente con respecto a la página */
 }

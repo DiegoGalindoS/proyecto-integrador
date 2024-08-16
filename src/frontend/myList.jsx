@@ -143,21 +143,21 @@ function MyList() {
     fetchTodos();
   }, [id]);
 
-  // Cargar frase desde la API
-  useEffect(() => {
-    const fetchFrase = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/api/frases');
-        if (response.data.length > 0) {
-          setFrase(response.data[0].texto); // Almacena la frase en el estado
-        }
-      } catch (error) {
-        console.error('Error al obtener la frase:', error);
+// Cargar frase desde la API
+useEffect(() => {
+  const fetchFrase = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/frases');
+      if (response.data.length > 0) {
+        setFrase(response.data[0].texto); // Almacena la frase en el estado
       }
-    };
+    } catch (error) {
+      console.error('Error al obtener la frase:', error);
+    }
+  };
 
-    fetchFrase();
-  }, []);
+  fetchFrase();
+}, []);
 
   return (
     <div className="myList">

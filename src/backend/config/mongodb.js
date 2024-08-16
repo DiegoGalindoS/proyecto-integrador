@@ -1,16 +1,16 @@
 // config/mongodb.js
 
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const connectMongoDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/echomind', {
+    await mongoose.connect("mongodb://localhost:27017/echomind", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('Conectado a MongoDB');
+    console.log("Conectado a MongoDB");
   } catch (error) {
-    console.error('Error al conectar a MongoDB:', error);
+    console.error("Error al conectar a MongoDB:", error);
     process.exit(1); // Detener la aplicación si falla la conexión
   }
 };
