@@ -1,41 +1,111 @@
-import { client } from "../config/db.js";
+// controllers/userController.js
+import {
+  crearUsuario,
+  encontrarUsuarioPorCredenciales,
+  obtenerUsuarios,
+  actualizarUsuario,
+  eliminarUsuario,
+  obtenerPaises,
+} from "../models/userModel.js";
+import { client } from "../config/db.js"; // Asegúrate de que esta ruta sea correcta
 
-export const getUsers = async (req, res) => {
-  const query =
-    "SELECT nombres, apellidos, email, pais_id FROM registro_usuarios";
+export const createUser = async (req, res) => {
+  const {
+    nombres,
+    apellidos,
+    genero,
+    email,
+    password,
+    confirmar_password,
+    pais_id,
+  } = req.body;
 
   try {
-    const result = await client.query(query);
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: "No se encontraron usuarios" });
-    }
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Error al obtener los usuarios", err);
-    res.status(500).json({ error: "Error al obtener los usuarios" });
+    const usuario = await crearUsuario(
+      nombres,
+      apellidos,
+      genero,
+      email,
+      password,
+      confirmar_password,
+      pais_id
+    );
+    res.status(201).json(usuario);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
-// Controlador para actualizar el usuario
-export const updateUser = async (req, res) => {
-  const { email } = req.params; // Obtener el email del parámetro
-  const { nombres, apellidos, pais_id } = req.body; // Obtener los nuevos datos del cuerpo de la solicitud
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
 
   try {
-    const result = await client.query(
-      `UPDATE registro_usuarios
-       SET nombres = $1, apellidos = $2, pais_id = $3
-       WHERE email = $4 RETURNING *`,
-      [nombres, apellidos, pais_id, email]
-    );
-
-    if (result.rowCount === 0) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
+    console.log(`Intentando iniciar sesión con email: ${email}`);
+    const usuario = await encontrarUsuarioPorCredenciales(email, password);
+    if (usuario) {
+      res.status(200).json(usuario);
+    } else {
+      console.log("Credenciales incorrectas para email:", email);
+      res.status(401).json({ error: "Credenciales incorrectas" });
     }
+  } catch (error) {
+    console.error("Error durante la autenticación:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
 
-    res.json({ message: "Usuario actualizado", user: result.rows[0] });
-  } catch (err) {
-    console.error("Error al actualizar el usuario:", err);
-    res.status(500).json({ error: "Error al actualizar el usuario" });
+export const getUsers = async (req, res) => {
+  try {
+    const usuarios = await obtenerUsuarios();
+    res.status(200).json(usuarios);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const updateUser = async (req, res) => {
+  const { email } = req.params;
+  const { nombres, apellidos, genero, pais_id } = req.body;
+
+  try {
+    const usuarioActualizado = await actualizarUsuario(
+      email,
+      nombres,
+      apellidos,
+      genero,
+      pais_id
+    );
+    if (usuarioActualizado) {
+      res.status(200).json(usuarioActualizado);
+    } else {
+      res.status(404).json({ error: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const usuarioEliminado = await eliminarUsuario(email);
+    if (usuarioEliminado) {
+      res.status(200).json(usuarioEliminado);
+    } else {
+      res.status(404).json({ error: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const getPaises = async (req, res) => {
+  try {
+    const paises = await obtenerPaises();
+    res.json(paises);
+  } catch (error) {
+    console.error("Error al obtener la lista de países:", error);
+    res.status(500).send("Error al obtener la lista de países");
   }
 };

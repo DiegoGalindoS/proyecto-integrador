@@ -17,21 +17,36 @@ function App() {
   const handleLogin = async () => {
     setLoading(true);
     setError('');
-
+  
     try {
+      console.log("Enviando solicitud de autenticación...");
+      
       const response = await axios.post('http://localhost:3001/api/login', {
         email,
         password,
       });
-      const userPerfil = response.data.usuario.perfil;
-      setPerfil(userPerfil); // Establece el perfil en el contexto
-      navigate('/home');
+      
+      console.log("Respuesta recibida:", response);
+      
+      if (response.status === 200) {
+        const userPerfil = response.data.perfil;
+        setPerfil(userPerfil);
+        navigate('/home');
+      } else {
+        setError('Error desconocido en la autenticación');
+      }
     } catch (error) {
-      setError('Error desconocido');
+      console.error("Error en el login:", error);
+      if (error.response?.status === 401) {
+        setError('Credenciales incorrectas');
+      } else {
+        setError('Error desconocido');
+      }
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className='app-container'>

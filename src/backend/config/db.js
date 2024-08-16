@@ -14,4 +14,4 @@ client
   .then(() => console.log("Conectado a la base de datos PostgreSQL"))
   .catch((err) => console.error("Error al conectar a la base de datos", err));
 
-export { client }; // Named export
+export { client };

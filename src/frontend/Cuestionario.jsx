@@ -3,6 +3,7 @@ import './Cuestionairo.css'; // Asegúrate que el nombre del archivo CSS esté c
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
 function Cuestionario() {
   const [formData, setFormData] = useState({
     nombres: '',
@@ -20,19 +21,21 @@ function Cuestionario() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Cargar países desde el backend
     const cargarPaises = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/register/paises'); // Ruta corregida para cargar países
+        const response = await axios.get('http://localhost:3001/api/paises');
+        console.log('Respuesta completa de la API:', response); // Verifica la respuesta completa
+        console.log('Países cargados:', response.data); // Verifica los datos en la respuesta
         setPaises(response.data);
       } catch (error) {
         console.error('Error al cargar los países:', error);
-        setError('No se pudieron cargar los países.'); // Mostrar error en la UI
+        setError('No se pudieron cargar los países.');
       }
     };
-
+  
     cargarPaises();
   }, []);
+  
 
   const handleChange = (e) => {
     setFormData({
@@ -90,7 +93,7 @@ function Cuestionario() {
       setError(error.response && error.response.data.error ? error.response.data.error : 'Error al registrar el usuario');
     }
   };
-  
+  console.log('Paises:', paises);
   return (
     <div className="container">
       <h1>Cuestionario de Registro</h1>

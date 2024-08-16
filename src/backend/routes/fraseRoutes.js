@@ -1,5 +1,5 @@
 import express from "express";
-import Frase from "../models/Frase.js";
+import Frase from "../models/FraseModel.js";
 
 const router = express.Router();
 

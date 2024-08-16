@@ -1,32 +1,28 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import registerRoutes from "./routes/registerRoutes.js";
-import loginRoutes from "./routes/loginRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import fraseRoutes from "./routes/fraseRoutes.js";
-import listRoutes from "./routes/listRoutes.js";
-import todoRoutes from "./routes/todoRoutes.js";
+import userRoutes from "./routes/userRoutes.js"; // Incluye las rutas relacionadas con usuarios
+import fraseRoutes from "./routes/fraseRoutes.js"; // Incluye las rutas relacionadas con frases
+import listRoutes from "./routes/listRoutes.js"; // Incluye las rutas relacionadas con listas
+import todoRoutes from "./routes/todoRoutes.js"; // Incluye las rutas relacionadas con tareas
 import connectMongoDB from "./config/mongodb.js"; // Importa la conexión a MongoDB si la necesitas
 
 const app = express();
 const port = process.env.PORT || 3001;
-connectMongoDB(); // Conectar a MongoDB
+
+// Conectar a MongoDB
+connectMongoDB();
+
 // Middleware para parsear JSON y habilitar CORS
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
-// Asegúrate de no volver a conectar el cliente aquí, ya está conectado en `db.js`
-
 // Rutas
-app.use("/api/register", registerRoutes);
-app.use("/api/login", loginRoutes);
-app.use("/api", userRoutes);
-app.use("/api", fraseRoutes);
-
-app.use("/api", listRoutes);
-app.use("/api", todoRoutes);
+app.use("/api", userRoutes); // Rutas relacionadas con usuarios (registro, login, CRUD de usuarios)
+app.use("/api", fraseRoutes); // Rutas relacionadas con frases
+app.use("/api", listRoutes); // Rutas relacionadas con listas
+app.use("/api", todoRoutes); // Rutas relacionadas con tareas
 
 // Manejo de errores global (opcional, pero recomendado)
 app.use((err, req, res, next) => {
