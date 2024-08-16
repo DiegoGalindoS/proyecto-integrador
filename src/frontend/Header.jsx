@@ -7,14 +7,14 @@ const Header = ({ perfil }) => {
 
   return (
     <header className="header">
-      <img src="images/logo.png" alt="Logo" />
+      <img src="./images/logo.png" alt="Logo" />
         
       <nav className='nav'>
-        <a><Link to="/home">Inicio</Link></a>
-        <a><Link to="/all-lists">Todas las Listas</Link> </a>
-        <a ><Link to="/completed-tasks">Mis actividades</Link></a>
+        <Link to="/home">Inicio</Link>
+        <Link to="/all-lists">Todas las Listas</Link> 
+        <Link to="/completed-tasks">Mis actividades</Link>
         {perfil === 'Administrador' && (
-        <a><Link to="/administrar">Administrar</Link></a>
+        <Link to="/administrar">Administrar</Link>
           )}
 
       </nav>
