@@ -3,12 +3,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
-import App from './App';
+import App from './Login';
 import MainLayout from './MainLayout';
 import Cuestionario from './Cuestionario';
 import Administrar from './Administrar'; // Asegúrate de que esta ruta sea correcta
 import Header from './Header';
-import ListDetails from './ListDetails';
+
 import AllLists from './AllLists'
  // Asegúrate de que esta ruta sea correcta
 import MyList from './myList';
@@ -43,7 +43,7 @@ root.render(
           <>
             <Header />
             <MyList /> {/* Renderiza MyList aquí */}
-            <ListDetails /> {/* Ruta para los detalles de la lista */}
+           
           </>
         } />
         <Route path="/all-lists" element={

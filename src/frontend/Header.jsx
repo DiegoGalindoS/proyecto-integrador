@@ -12,7 +12,7 @@ const Header = ({ perfil }) => {
       <nav className='nav'>
         <Link to="/home">Inicio</Link>
         <Link to="/all-lists">Todas las Listas</Link> 
-        <Link to="/completed-tasks">Mis actividades</Link>
+        
         {perfil === 'Administrador' && (
         <Link to="/administrar">Administrar</Link>
           )}

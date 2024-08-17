@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './allLists.css'; // Asegúrate de que la ruta es correcta
+import './AllLists.css'; // Asegúrate de que la ruta es correcta
 
 const AllLists = () => {
   const [lists, setLists] = useState([]);

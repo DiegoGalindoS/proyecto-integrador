@@ -1,13 +1,14 @@
+/* Contenedor principal */
 .app-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin-top: 5px;
+  margin: 0;
   font-family: Arial, sans-serif;
-  
 }
 
+/* Contenedor del formulario */
 .app-container div {
   display: flex;
   flex-direction: column;
@@ -17,19 +18,22 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: rgba(255, 255, 255, 0.05); /* Blanco con 80% opacidad */
+  background-color: rgba(255, 255, 255, 0.05); /* Blanco con 5% opacidad */
 }
 
+/* Estilos para la imagen */
 .app-container img {
-  width: 80%; /* Aumenta el tamaño de la imagen */
+  width: 80%;
   height: auto;
   margin-bottom: 30px; /* Espacio entre la imagen y el formulario */
 }
 
+/* Estilos para los campos de usuario y contraseña */
 .app-container .Usuario,
 .app-container .Contraseña {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centra el texto horizontalmente */
   width: 100%;
   margin-bottom: 15px;
 }
@@ -40,9 +44,9 @@
   margin: 0;
   color: white;
   font-weight: bold;
-  width: 150px; 
-  text-align: left;
-  font-size: 13px; 
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  text-align: center; /* Centra el texto */
+  font-size: 13px;
 }
 
 .app-container .Usuario input,
@@ -55,19 +59,21 @@
   width: 100%;
 }
 
+/* Estilos para mensajes de error */
 .app-container .Error {
   color: red;
   margin: 10px 0;
   text-align: center;
 }
 
+/* Estilos para el área de botones */
 .app-container .Buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
   margin-top: 20px;
-  gap: 10px; /* Espacio entre los botones */
+  gap: 10px;
 }
 
 .app-container .Buttons button {
@@ -85,18 +91,48 @@
   background-color: #0056b3;
 }
 
-/* Responsive Styles */
+/* Estilos responsivos */
 @media (max-width: 768px) {
   .app-container div {
     width: 90%;
     padding: 15px;
   }
 
+  .app-container img {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
   .app-container .Buttons {
-    flex-direction: row; /* Asegura que los botones sigan estando uno al lado del otro */
+    flex-direction: column;
   }
 
   .app-container .Buttons button {
-    margin: 0;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container div {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .app-container .Buttons button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .app-container .Usuario p,
+  .app-container .Contraseña p,
+  .app-container .ConfirmacionContraseña p {
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .app-container img {
+    margin-bottom: 15px;
   }
 }

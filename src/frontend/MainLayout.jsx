@@ -1,7 +1,7 @@
 import React from 'react';
 import CardComponent from './CardComponent';
 import Header from './Header';
-import './mainLayout.css'; // Asegúrate de tener este archivo CSS para el contenedor
+import './MainLayout.css'; // Asegúrate de tener este archivo CSS para el contenedor
 // src/MainLayout.jsx
 import { useContext } from 'react';
 import { UserContext } from './UserContext'; // Importa UserContext

@@ -1,13 +1,12 @@
-.myList{
-   
+.myList {
     color: white;
     overflow: hidden;
     z-index: 1;
     position: relative;
 }
 
-.todo-wrapper{
-    background-color: rgba(53, 52, 52, 0.8); /* Color #353434 con 80% opacidad */
+.todo-wrapper {
+    background-color: rgba(53, 52, 52, 0.8);
     padding: 2%;
     width: fit-content;
     margin-left: auto;
@@ -19,13 +18,13 @@
 }
 
 .list-title {
-    text-align: center; /* Centra el texto horizontalmente */
+    text-align: center;
     color: white;
     font-size: 2em;
-    margin-bottom: 20px; /* Añade un margen inferior */
+    margin-bottom: 20px;
 }
 
-.todo-input{
+.todo-input {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,32 +33,30 @@
     margin-bottom: 25px;
 }
 
-.todo-input-item{
+.todo-input-item {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-right: 25px;
-
 }
 
-.todo-input-item label{
+.todo-input-item label {
     font-weight: bold;
     margin-bottom: 10px;
-    
 }
 
-.todo-input-item input{
+.todo-input-item input {
     padding: 8px;
     border: none;
     width: 250px;
 }
 
-.todo-input-item input:focus{
+.todo-input-item input:focus {
     outline: none;
     border: 2px solid rgb(53, 163, 163);
 }
 
-.primaryBtn{
+.primaryBtn {
     background-color: rgb(35, 116, 116);
     color: white;
     border: none;
@@ -71,12 +68,12 @@
     align-content: center;
 }
 
-.primaryBtn:hover{
+.primaryBtn:hover {
     background-color: rgb(35, 116, 116);
     align-items: center;
 }
 
-.secondaryBtn{
+.secondaryBtn {
     background-color: rgb(73, 73, 73);
     color: aliceblue;
     border: none;
@@ -87,21 +84,21 @@
     cursor: pointer;
 }
 
-.active{
+.active {
     background-color: rgb(35, 116, 116);
 }
 
-.todo-list{
+.todo-list {
     display: flex;
     flex-direction: column;
 }
 
-.btn-area{
+.btn-area {
     margin-bottom: 15px;
 }
 
-.todo-list-item{
-    background: linear-gradient(to right, #00457e80, #2f6faf71); 
+.todo-list-item {
+    background: linear-gradient(to right, #00457e80, #2f6faf71);
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -112,66 +109,141 @@
     box-shadow: 0px 3px 5px gray;
 }
 
-.todo-list-item h3{
+.todo-list-item h3 {
     font-size: 20px;
     color: white;
     font-weight: bold;
     margin: 0;
 }
 
-.todo-list-item p{
+.todo-list-item p {
     font-size: 19px;
     color: white;
     margin-top: 8px;
 }
 
-.icon{
+.icon {
     font-size: 35px;
     cursor: pointer;
 }
 
-.icon:hover{
+.icon:hover {
     color: red;
 }
 
-.check-icon{
+.check-icon {
     font-size: 35px;
     margin-left: 10px;
     cursor: pointer;
     color: rgb(24, 206, 121);
 }
 
-.check-icon:hover{
+.check-icon:hover {
     color: rgb(8, 52, 31);
 }
 
 .edit-icon {
-    font-size: 30px; 
-    margin-left: 10px; 
-    cursor: pointer; 
-    color: rgb(0, 230, 122); 
-    transition: color 0.3s ease; 
+    font-size: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+    color: rgb(0, 230, 122);
+    transition: color 0.3s ease;
 }
 
 .edit-icon:hover {
-    color: rgb(4, 218, 218); 
-    transform: scale(1.2); 
+    color: rgb(4, 218, 218);
+    transform: scale(1.2);
     transition: color 0.3s ease, transform 0.3s ease;
 }
+
 .frase-del-dia {
     color: rgb(245, 245, 245);
-    text-align: justify; /* Justifica el texto */
+    text-align: justify;
     display: flex;
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; /* Centra horizontalmente */
-    height: 50px; /* Altura del contenedor */
-    margin-top: 20px; /* Espacio superior */
-    padding: 0 20px; /* Añade espacio interno a los lados */
-    background-color: rgba(93, 103, 155, 0.2); /* Fondo blanco con 20% opacidad */
-    border-radius: 8px; /* Bordes redondeados */
-    font-size: 16px; /* Tamaño de fuente más pequeño */
-    line-height: 1.5; /* Espacio entre líneas */
-    max-width: 80%; /* Limita el ancho máximo */
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    margin-top: 20px;
+    padding: 0 20px;
+    background-color: rgba(93, 103, 155, 0.2);
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 80%;
     margin-left: auto;
-    margin-right: auto; /* Centra horizontalmente con respecto a la página */
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .todo-wrapper {
+        width: 90%;
+        padding: 5%;
+    }
+
+    .todo-input {
+        flex-direction: column;
+    }
+
+    .todo-input-item {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .todo-input-item input {
+        width: 100%;
+    }
+
+    .primaryBtn, .secondaryBtn {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .todo-list-item {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .todo-list-item h3, .todo-list-item p {
+        font-size: 18px;
+    }
+
+    .icon, .check-icon, .edit-icon {
+        font-size: 25px;
+    }
+
+    .frase-del-dia {
+        max-width: 100%;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .todo-wrapper {
+        width: 100%;
+        padding: 10%;
+    }
+
+    .primaryBtn, .secondaryBtn {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .todo-list-item {
+        padding: 10px;
+    }
+
+    .todo-list-item h3, .todo-list-item p {
+        font-size: 16px;
+    }
+
+    .icon, .check-icon, .edit-icon {
+        font-size: 20px;
+    }
+
+    .frase-del-dia {
+        font-size: 12px;
+    }
 }

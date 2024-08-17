@@ -1,8 +1,7 @@
+/* Contenedor principal */
 .all-lists {
   padding: 20px;
-  
   color: white;
-  
 }
 
 .all-lists h1 {
@@ -10,6 +9,7 @@
   margin-bottom: 15px;
 }
 
+/* Contenedor de ítems de la lista */
 .list-items {
   display: flex;
   flex-wrap: wrap;
@@ -20,14 +20,15 @@
   list-style-type: none;
 }
 
+/* Estilos para cada ítem de la lista */
 .list-item {
   background: rgba(0, 32, 63, 0.6);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
-  width: 200px; /* Establece un ancho fijo */
-  text-align: center; /* Centra el texto dentro del recuadro */
+  width: 200px;
+  text-align: center;
 }
 
 .list-item:hover {
@@ -35,9 +36,33 @@
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* Estilos para los enlaces */
 .list-link {
   color: white;
   text-decoration: none;
   font-size: 18px;
 }
 
+/* Responsive Design */
+
+/* Pantallas medianas (768px) */
+@media (max-width: 768px) {
+  .list-item {
+    width: 45%; /* Ajusta el ancho de los ítems al 45% */
+  }
+}
+
+/* Pantallas pequeñas (480px) */
+@media (max-width: 480px) {
+  .list-item {
+    width: 100%; /* Cada ítem ocupará el 100% del ancho disponible */
+  }
+
+  .list-link {
+    font-size: 16px; /* Reduce el tamaño de la fuente */
+  }
+
+  .all-lists {
+    padding: 10px; /* Reduce el padding en pantallas pequeñas */
+  }
+}

@@ -1,12 +1,10 @@
 /* Header.css */
 .header {
-  
   top: 0;
   left: 0;
   width: 100%;
   padding: 20px 10%;
-  background-color: rgba(0, 0, 255, 0.1); /* Donde 0.1 representa la opacidad */
-
+  background-color: rgba(0, 0, 255, 0.1); /* Fondo con opacidad */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,21 +12,19 @@
 }
 
 img {
-  width: 200px; /* Keeping the original size */
+  width: 200px; /* Manteniendo el tamaño original */
   height: auto;
-
 }
 
 .nav a {
-position: relative;
-font-size: 18px;
-color: #fff;
-font-weight: 500;
-margin-left: 40px;
-
+  position: relative;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+  margin-left: 40px;
 }
 
-.nav a::before{
+.nav a::before {
   content: '';
   position: absolute;
   top: 100%;
@@ -38,8 +34,42 @@ margin-left: 40px;
   background: #fff;
   transition: width 0.3s ease;
   width: 0; /* Inicialmente sin ancho */
-} 
+}
 
-.nav a:hover::before{
+.nav a:hover::before {
   width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 5%; /* Reduciendo el padding en pantallas más pequeñas */
+    flex-direction: column; /* Cambiando la dirección a columna para mejor alineación */
+    align-items: flex-start; /* Alineando los elementos al inicio */
+  }
+
+  img {
+    width: 150px; /* Reducción del tamaño de la imagen en pantallas más pequeñas */
+    margin-bottom: 10px; /* Espacio entre la imagen y la navegación */
+  }
+
+  .nav a {
+    font-size: 16px; /* Ajuste del tamaño de la fuente */
+    margin-left: 20px; /* Reduciendo el espacio entre los enlaces */
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 10px 3%; /* Más ajuste en el padding */
+  }
+
+  img {
+    width: 120px; /* Más reducción del tamaño de la imagen */
+  }
+
+  .nav a {
+    font-size: 14px; /* Más ajuste del tamaño de la fuente */
+    margin-left: 10px; /* Menor margen entre los enlaces */
+  }
 }

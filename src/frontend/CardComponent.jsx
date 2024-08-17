@@ -29,7 +29,7 @@ function CardComponent({ buttonText, userId, isCreateButton, to, title, descript
       }
     } catch (error) {
       console.error('Error:', error);
-    }
+    }  
   };
 
   return (
